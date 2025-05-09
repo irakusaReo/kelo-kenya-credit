@@ -17,7 +17,7 @@ const features = [
   },
   {
     name: 'M-Pesa Integration',
-    description: 'Seamless payments through Kenya's most popular mobile money platform, making repayments convenient.',
+    description: "Seamless payments through Kenya's most popular mobile money platform, making repayments convenient.",
     icon: CreditCard,
     color: 'bg-green-100 text-green-600',
   },
