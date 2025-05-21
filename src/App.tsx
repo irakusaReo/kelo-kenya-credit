@@ -10,6 +10,14 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 
+// New pages
+import Marketplace from "./pages/Marketplace";
+import VerticalDetail from "./pages/VerticalDetail";
+import ProductDetail from "./pages/ProductDetail";
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
+import Success from "./pages/Success";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -23,6 +31,15 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          
+          {/* New routes */}
+          <Route path="/marketplace" element={<Marketplace />} />
+          <Route path="/vertical/:slug" element={<VerticalDetail />} />
+          <Route path="/product/:id" element={<ProductDetail />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/success" element={<Success />} />
+          
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
