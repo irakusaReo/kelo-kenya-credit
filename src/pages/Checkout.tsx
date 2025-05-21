@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -34,6 +34,12 @@ const Checkout = () => {
   const stepIndex = steps.findIndex(step => step.id === currentStep);
   const progress = ((stepIndex + 1) / steps.length) * 100;
   
+  useEffect(() => {
+    if (cart.length === 0) {
+      navigate('/cart');
+    }
+  }, [cart, navigate]);
+  
   const handleNextStep = () => {
     if (currentStep === 'personal') {
       setCurrentStep('payment');
@@ -61,7 +67,6 @@ const Checkout = () => {
   };
   
   if (cart.length === 0) {
-    navigate('/cart');
     return null;
   }
 
