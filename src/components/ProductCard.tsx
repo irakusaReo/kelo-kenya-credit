@@ -10,7 +10,7 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  // Generate a random rating between 3.5 and 5.0 for demo purposes
+  // Generate a random rating between 3.5 and 5.0 for demo purposes if not provided
   const rating = product.rating || (Math.random() * 1.5 + 3.5).toFixed(1);
   const fullStars = Math.floor(rating);
   const hasHalfStar = rating % 1 >= 0.5;
@@ -31,7 +31,16 @@ const ProductCard = ({ product }: ProductCardProps) => {
           />
         </div>
         <CardContent className="p-4">
-          <div className="text-sm text-gray-600 mb-1">{product.partnerName}</div>
+          <div className="flex items-center mb-1">
+            {product.partnerLogo && (
+              <img 
+                src={product.partnerLogo} 
+                alt={product.partnerName || "Partner"} 
+                className="h-4 w-4 object-contain mr-2"
+              />
+            )}
+            <div className="text-sm text-gray-600">{product.partnerName}</div>
+          </div>
           <h3 className="font-medium mb-2 leading-tight line-clamp-2">{product.name}</h3>
           
           {/* Rating display */}

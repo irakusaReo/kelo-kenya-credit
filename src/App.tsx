@@ -16,6 +16,7 @@ import NotFound from "./pages/NotFound";
 // New pages
 import Marketplace from "./pages/Marketplace";
 import VerticalDetail from "./pages/VerticalDetail";
+import PartnerDetail from "./pages/PartnerDetail";
 import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
@@ -63,6 +64,7 @@ const App = () => (
             {/* New routes */}
             <Route path="/marketplace" element={<Marketplace />} />
             <Route path="/vertical/:slug" element={<VerticalDetail />} />
+            <Route path="/partner/:id" element={<PartnerDetail />} />
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />

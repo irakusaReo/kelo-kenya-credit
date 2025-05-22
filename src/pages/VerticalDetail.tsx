@@ -9,6 +9,7 @@ import { verticals } from '@/data/verticals';
 import { partners } from '@/data/partners';
 import { products } from '@/data/products';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from '@/components/ui/button';
 
 const VerticalDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -69,14 +70,30 @@ const VerticalDetail = () => {
                     <PartnerCard key={partner.id} partner={partner} />
                   ))}
                 </div>
+                {verticalPartners.length === 0 && (
+                  <div className="text-center py-12">
+                    <p className="text-gray-600 mb-4">No partners found for this category yet.</p>
+                    <Link to="/marketplace">
+                      <Button variant="outline">Back to Marketplace</Button>
+                    </Link>
+                  </div>
+                )}
               </TabsContent>
               
               <TabsContent value="trending" className="mt-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                   {featuredProducts.map((product) => (
-                    <ProductCard key={product.id} product={product} />
+                    <ProductCard key={product.id} product={{...product, partnerName: partners.find(p => p.id === product.partnerId)?.name}} />
                   ))}
                 </div>
+                {featuredProducts.length === 0 && (
+                  <div className="text-center py-12">
+                    <p className="text-gray-600 mb-4">No trending products in this category yet.</p>
+                    <Link to="/marketplace">
+                      <Button variant="outline">Back to Marketplace</Button>
+                    </Link>
+                  </div>
+                )}
               </TabsContent>
             </Tabs>
           </div>
