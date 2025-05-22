@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import Navbar from '@/components/Navbar';
-import { Google } from 'lucide-react';
+import { Mail } from 'lucide-react';
 
 const VendorSignup = () => {
   const [formData, setFormData] = React.useState({
@@ -56,7 +56,7 @@ const VendorSignup = () => {
                 className="w-full" 
                 onClick={handleGoogleSignUp}
               >
-                <Google className="mr-2 h-5 w-5" />
+                <Mail className="mr-2 h-5 w-5" />
                 Sign up with Google
               </Button>
               

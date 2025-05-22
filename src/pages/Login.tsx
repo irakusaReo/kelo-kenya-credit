@@ -9,12 +9,15 @@ import { Separator } from '@/components/ui/separator';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ConnectWalletButton from '@/components/invest/ConnectWalletButton';
-import { Google } from 'lucide-react';
+import { Mail } from 'lucide-react';
+import useAuthProvider from '@/hooks/useAuthProvider';
 
 const Login = () => {
+  const auth = useAuthProvider();
+  
   const handleGoogleSignIn = () => {
     console.log('Google sign-in clicked');
-    // Implement Google OAuth flow here
+    auth.loginWithGoogle();
   };
 
   return (
@@ -90,7 +93,7 @@ const Login = () => {
                 className="w-full" 
                 onClick={handleGoogleSignIn}
               >
-                <Google className="mr-2 h-5 w-5" />
+                <Mail className="mr-2 h-5 w-5" />
                 Sign in with Google
               </Button>
               
