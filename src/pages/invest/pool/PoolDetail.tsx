@@ -14,6 +14,7 @@ import WithdrawModal from '@/components/invest/WithdrawModal';
 import { pools } from '@/data/invest/pools';
 import { strategies } from '@/data/invest/strategies';
 import { historicalReturns } from '@/data/invest/historicalReturns';
+import { Pool } from '@/types/invest';
 
 const PoolDetail = () => {
   const { symbol } = useParams<{ symbol: string }>();
@@ -22,7 +23,7 @@ const PoolDetail = () => {
   
   // Find pool data by symbol
   const poolId = symbol ? `${symbol.toLowerCase()}-polygon` : '';
-  const pool = pools.find(p => p.id === poolId);
+  const pool = pools.find(p => p.id === poolId) as Pool | undefined;
   const poolStrategies = strategies[poolId as keyof typeof strategies] || [];
   const returns = historicalReturns[poolId as keyof typeof historicalReturns];
   

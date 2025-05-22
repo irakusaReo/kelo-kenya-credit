@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import PoolCard from '@/components/invest/PoolCard';
 import ConnectWalletButton from '@/components/invest/ConnectWalletButton';
 import { pools } from '@/data/invest/pools';
+import { Pool } from '@/types/invest';
 
 const InvestLanding = () => {
   return (
@@ -42,7 +43,7 @@ const InvestLanding = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {pools.map((pool) => (
-                <PoolCard key={pool.id} pool={pool} />
+                <PoolCard key={pool.id} pool={pool as Pool} />
               ))}
             </div>
           </div>

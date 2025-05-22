@@ -14,7 +14,7 @@ export const pools = [
     bnplAPY: 7.8,
     totalAPY: 12.0,
     utilizationRate: 78,
-    riskScore: 2,
+    riskScore: 2 as 1 | 2 | 3 | 4 | 5,
     logo: "/assets/usdc-logo.svg",
     gradient: "linear-gradient(90deg, hsla(221, 45%, 73%, 1) 0%, hsla(220, 78%, 29%, 1) 100%)"
   },
@@ -32,7 +32,7 @@ export const pools = [
     bnplAPY: 5.5,
     totalAPY: 9.0,
     utilizationRate: 65,
-    riskScore: 3,
+    riskScore: 3 as 1 | 2 | 3 | 4 | 5,
     logo: "/assets/eth-logo.svg",
     gradient: "linear-gradient(90deg, hsla(39, 100%, 77%, 1) 0%, hsla(22, 90%, 57%, 1) 100%)"
   },
@@ -50,7 +50,7 @@ export const pools = [
     bnplAPY: 8.9,
     totalAPY: 14.0,
     utilizationRate: 82,
-    riskScore: 4,
+    riskScore: 4 as 1 | 2 | 3 | 4 | 5,
     logo: "/assets/sol-logo.svg",
     gradient: "linear-gradient(90deg, hsla(277, 75%, 84%, 1) 0%, hsla(297, 50%, 51%, 1) 100%)"
   },
@@ -68,7 +68,7 @@ export const pools = [
     bnplAPY: 7.3,
     totalAPY: 13.5,
     utilizationRate: 71,
-    riskScore: 3,
+    riskScore: 3 as 1 | 2 | 3 | 4 | 5,
     logo: "/assets/avax-logo.svg",
     gradient: "linear-gradient(90deg, hsla(24, 100%, 83%, 1) 0%, hsla(341, 91%, 68%, 1) 100%)"
   },
@@ -86,7 +86,7 @@ export const pools = [
     bnplAPY: 9.5,
     totalAPY: 17.0,
     utilizationRate: 60,
-    riskScore: 5,
+    riskScore: 5 as 1 | 2 | 3 | 4 | 5,
     logo: "/assets/sui-logo.svg",
     gradient: "linear-gradient(90deg, hsla(59, 86%, 68%, 1) 0%, hsla(134, 36%, 53%, 1) 100%)"
   },
@@ -104,7 +104,7 @@ export const pools = [
     bnplAPY: 10.0,
     totalAPY: 18.0,
     utilizationRate: 55,
-    riskScore: 5,
+    riskScore: 5 as 1 | 2 | 3 | 4 | 5,
     logo: "/assets/apt-logo.svg",
     gradient: "linear-gradient(90deg, hsla(46, 73%, 75%, 1) 0%, hsla(176, 73%, 88%, 1) 100%)"
   }
