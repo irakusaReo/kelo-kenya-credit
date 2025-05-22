@@ -5,10 +5,18 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Separator } from '@/components/ui/separator';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import ConnectWalletButton from '@/components/invest/ConnectWalletButton';
+import { Google } from 'lucide-react';
 
 const Login = () => {
+  const handleGoogleSignIn = () => {
+    console.log('Google sign-in clicked');
+    // Implement Google OAuth flow here
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -22,6 +30,7 @@ const Login = () => {
           </div>
           
           <div className="bg-white p-8 shadow-md rounded-xl border border-gray-100">
+            {/* Email/Password Form */}
             <form className="space-y-6" action="#" method="POST">
               <div className="space-y-2">
                 <Label htmlFor="email">Email address</Label>
@@ -63,9 +72,33 @@ const Login = () => {
               </div>
 
               <Button type="submit" className="w-full bg-kelo-blue hover:bg-kelo-blue/90">
-                Sign in
+                Sign in with Email
               </Button>
             </form>
+            
+            {/* Separator */}
+            <div className="flex items-center my-6">
+              <Separator className="flex-grow" />
+              <span className="px-4 text-sm text-gray-500">OR</span>
+              <Separator className="flex-grow" />
+            </div>
+            
+            {/* Alternative Sign-In Methods */}
+            <div className="space-y-4">
+              <Button 
+                variant="outline" 
+                className="w-full" 
+                onClick={handleGoogleSignIn}
+              >
+                <Google className="mr-2 h-5 w-5" />
+                Sign in with Google
+              </Button>
+              
+              <ConnectWalletButton 
+                className="w-full" 
+                variant="outline"
+              />
+            </div>
           </div>
           
           <p className="mt-4 text-center text-sm text-gray-600">

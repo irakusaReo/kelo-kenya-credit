@@ -2,10 +2,20 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, User, LogOut } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, isAuthenticated, logout } = useAuth();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -66,12 +76,41 @@ const Navbar = () => {
         </nav>
 
         <div className="hidden md:flex items-center space-x-4">
-          <Link to="/login">
-            <Button variant="outline" size="sm">Log In</Button>
-          </Link>
-          <Link to="/register">
-            <Button size="sm" className="bg-kelo-blue hover:bg-kelo-blue/90">Sign Up</Button>
-          </Link>
+          {isAuthenticated ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="flex items-center">
+                  <User className="h-4 w-4 mr-2" />
+                  {user?.name || 'Account'}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="/dashboard" className="cursor-pointer">Dashboard</Link>
+                </DropdownMenuItem>
+                {user?.walletAddress && (
+                  <DropdownMenuItem asChild>
+                    <Link to="/invest/dashboard" className="cursor-pointer">Investments</Link>
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuItem onClick={logout} className="cursor-pointer text-red-600">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <>
+              <Link to="/login">
+                <Button variant="outline" size="sm">Log In</Button>
+              </Link>
+              <Link to="/register">
+                <Button size="sm" className="bg-kelo-blue hover:bg-kelo-blue/90">Sign Up</Button>
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile menu button */}
@@ -116,13 +155,38 @@ const Navbar = () => {
             <Link to="/faqs" className="px-3 py-2 text-lg font-medium" onClick={toggleMenu}>
               FAQs
             </Link>
+            
             <div className="flex flex-col space-y-3 mt-4 pt-4 border-t">
-              <Link to="/login" onClick={toggleMenu}>
-                <Button variant="outline" className="w-full">Log In</Button>
-              </Link>
-              <Link to="/register" onClick={toggleMenu}>
-                <Button className="w-full bg-kelo-blue hover:bg-kelo-blue/90">Sign Up</Button>
-              </Link>
+              {isAuthenticated ? (
+                <>
+                  <Link to="/dashboard" onClick={toggleMenu}>
+                    <Button variant="outline" className="w-full justify-start">
+                      <User className="mr-2 h-4 w-4" />
+                      My Account
+                    </Button>
+                  </Link>
+                  <Button 
+                    onClick={() => {
+                      logout();
+                      toggleMenu();
+                    }} 
+                    variant="outline" 
+                    className="w-full justify-start text-red-600"
+                  >
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login" onClick={toggleMenu}>
+                    <Button variant="outline" className="w-full">Log In</Button>
+                  </Link>
+                  <Link to="/register" onClick={toggleMenu}>
+                    <Button className="w-full bg-kelo-blue hover:bg-kelo-blue/90">Sign Up</Button>
+                  </Link>
+                </>
+              )}
             </div>
           </nav>
         </div>

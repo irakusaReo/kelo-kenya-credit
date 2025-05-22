@@ -5,10 +5,18 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Separator } from '@/components/ui/separator';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import ConnectWalletButton from '@/components/invest/ConnectWalletButton';
+import { Google } from 'lucide-react';
 
 const Register = () => {
+  const handleGoogleSignUp = () => {
+    console.log('Google sign-up clicked');
+    // Implement Google OAuth flow here
+  };
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -21,7 +29,31 @@ const Register = () => {
             </p>
           </div>
           
+          {/* Alternative Sign-Up Methods */}
           <div className="bg-white p-8 shadow-md rounded-xl border border-gray-100">
+            <div className="space-y-4 mb-6">
+              <Button 
+                variant="outline" 
+                className="w-full" 
+                onClick={handleGoogleSignUp}
+              >
+                <Google className="mr-2 h-5 w-5" />
+                Sign up with Google
+              </Button>
+              
+              <ConnectWalletButton 
+                className="w-full" 
+                variant="outline"
+              />
+            </div>
+            
+            {/* Separator */}
+            <div className="flex items-center my-6">
+              <Separator className="flex-grow" />
+              <span className="px-4 text-sm text-gray-500">OR</span>
+              <Separator className="flex-grow" />
+            </div>
+          
             <form className="space-y-6" action="#" method="POST">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">

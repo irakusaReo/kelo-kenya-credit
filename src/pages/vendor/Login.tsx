@@ -4,8 +4,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Separator } from '@/components/ui/separator';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import Navbar from '@/components/Navbar';
+import { Google } from 'lucide-react';
 
 const VendorLogin = () => {
   const navigate = useNavigate();
@@ -24,6 +26,11 @@ const VendorLogin = () => {
     console.log('Login submitted:', formData);
     // Here would be the API call to authenticate the vendor
     navigate('/vendor/dashboard'); // Navigate to dashboard after login
+  };
+
+  const handleGoogleSignIn = () => {
+    console.log('Google sign-in clicked');
+    // Implement Google OAuth flow for vendors here
   };
 
   return (
@@ -81,9 +88,7 @@ const VendorLogin = () => {
                     Forgot password?
                   </Link>
                 </div>
-              </CardContent>
-
-              <CardFooter className="flex flex-col space-y-4">
+                
                 <Button 
                   type="submit" 
                   className="w-full bg-kelo-blue hover:bg-kelo-blue/90"
@@ -91,6 +96,26 @@ const VendorLogin = () => {
                   Sign In
                 </Button>
                 
+                {/* Separator */}
+                <div className="flex items-center my-4">
+                  <Separator className="flex-grow" />
+                  <span className="px-4 text-sm text-gray-500">OR</span>
+                  <Separator className="flex-grow" />
+                </div>
+                
+                {/* Google Sign-In */}
+                <Button 
+                  type="button"
+                  variant="outline" 
+                  className="w-full" 
+                  onClick={handleGoogleSignIn}
+                >
+                  <Google className="mr-2 h-5 w-5" />
+                  Sign in with Google
+                </Button>
+              </CardContent>
+
+              <CardFooter className="flex flex-col space-y-4">
                 <div className="text-center text-sm">
                   Don't have an account?{' '}
                   <Link to="/vendor/signup" className="text-kelo-blue hover:underline">

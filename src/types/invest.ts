@@ -44,4 +44,26 @@ export interface ChainInfo {
   isActive: boolean;
   launchPhase: 'alpha' | 'beta' | 'v1.1' | 'v1.2' | 'v2';
   estimatedLaunch?: string;
+  yieldSource?: string;
+  messagingProtocol?: string; // LayerZero, Chainlink CCIP, Wormhole
+  bridgeProtocol?: string; // Stargate, Axelar, etc.
+  receiptToken?: string; // xKELO-ETH, xKELO-ARB, etc.
+  riskScore?: 1 | 2 | 3 | 4 | 5;
+}
+
+export interface UserInvestment {
+  poolId: string;
+  amountDeposited: number;
+  shares: number;
+  valueInUsd: number;
+  pendingRewards: number;
+  depositDate: string;
+  chain: string;
+}
+
+export interface WalletBalance {
+  chain: string;
+  token: string;
+  balance: number;
+  usdValue: number;
 }
