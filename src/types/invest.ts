@@ -16,6 +16,9 @@ export interface Pool {
   riskScore: 1 | 2 | 3 | 4 | 5;
   logo: string;
   gradient: string;
+  receiptToken?: string; // xKELO token symbol
+  nativeStaking?: string; // Type of native staking used
+  bridgeProtocol?: string; // Cross-chain bridge used
 }
 
 export interface Strategy {
@@ -31,4 +34,14 @@ export interface Strategy {
 export interface HistoricalReturn {
   date: string;
   apy: number;
+}
+
+export interface ChainInfo {
+  name: string;
+  logo: string;
+  nativeToken: string;
+  vaultType: string;
+  isActive: boolean;
+  launchPhase: 'alpha' | 'beta' | 'v1.1' | 'v1.2' | 'v2';
+  estimatedLaunch?: string;
 }

@@ -1,4 +1,6 @@
 
+import { Pool } from "@/types/invest";
+
 export const pools = [
   {
     id: "usdc-polygon",
@@ -16,7 +18,9 @@ export const pools = [
     utilizationRate: 78,
     riskScore: 2 as 1 | 2 | 3 | 4 | 5,
     logo: "/assets/usdc-logo.svg",
-    gradient: "linear-gradient(90deg, hsla(221, 45%, 73%, 1) 0%, hsla(220, 78%, 29%, 1) 100%)"
+    gradient: "linear-gradient(90deg, hsla(221, 45%, 73%, 1) 0%, hsla(220, 78%, 29%, 1) 100%)",
+    receiptToken: "xKELO-POLY",
+    bridgeProtocol: "LayerZero"
   },
   {
     id: "weth-polygon",
@@ -34,16 +38,19 @@ export const pools = [
     utilizationRate: 65,
     riskScore: 3 as 1 | 2 | 3 | 4 | 5,
     logo: "/assets/eth-logo.svg",
-    gradient: "linear-gradient(90deg, hsla(39, 100%, 77%, 1) 0%, hsla(22, 90%, 57%, 1) 100%)"
+    gradient: "linear-gradient(90deg, hsla(39, 100%, 77%, 1) 0%, hsla(22, 90%, 57%, 1) 100%)",
+    receiptToken: "xKELO-POLY-ETH",
+    nativeStaking: "weETH",
+    bridgeProtocol: "LayerZero"
   },
   {
     id: "wsol-polygon",
     symbol: "wSOL",
     name: "Wrapped Solana",
-    chain: "polygon",
-    chainId: 137,
+    chain: "solana",
+    chainId: 1399811149,
     decimals: 9,
-    address: "0xd93f7E271cB87c23AaA73edC008A79646d1F9912",
+    address: "SOL1111111111111111111111111111111111111111",
     poolAddress: "0xABCDEF1234567890ABCDEF1234567890ABCDEF12",
     tvl: 800000,
     baseAPY: 5.1,
@@ -52,16 +59,19 @@ export const pools = [
     utilizationRate: 82,
     riskScore: 4 as 1 | 2 | 3 | 4 | 5,
     logo: "/assets/sol-logo.svg",
-    gradient: "linear-gradient(90deg, hsla(277, 75%, 84%, 1) 0%, hsla(297, 50%, 51%, 1) 100%)"
+    gradient: "linear-gradient(90deg, hsla(277, 75%, 84%, 1) 0%, hsla(297, 50%, 51%, 1) 100%)",
+    receiptToken: "xKELO-SOL",
+    nativeStaking: "Solana Native Stake",
+    bridgeProtocol: "Wormhole"
   },
   {
     id: "wavax-polygon",
     symbol: "wAVAX",
     name: "Wrapped Avalanche",
-    chain: "polygon",
-    chainId: 137,
+    chain: "avalanche",
+    chainId: 43114,
     decimals: 18,
-    address: "0x2C89bbc92BD86F8075d1DEcc58C7F4E0107f286b",
+    address: "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7",
     poolAddress: "0x2468ACF901234567890ABCDEF123456789012345",
     tvl: 650000,
     baseAPY: 6.2,
@@ -70,14 +80,17 @@ export const pools = [
     utilizationRate: 71,
     riskScore: 3 as 1 | 2 | 3 | 4 | 5,
     logo: "/assets/avax-logo.svg",
-    gradient: "linear-gradient(90deg, hsla(24, 100%, 83%, 1) 0%, hsla(341, 91%, 68%, 1) 100%)"
+    gradient: "linear-gradient(90deg, hsla(24, 100%, 83%, 1) 0%, hsla(341, 91%, 68%, 1) 100%)",
+    receiptToken: "xKELO-AVAX",
+    nativeStaking: "sAVAX",
+    bridgeProtocol: "LayerZero"
   },
   {
     id: "wsui-polygon",
     symbol: "wSUI",
     name: "Wrapped Sui",
-    chain: "polygon",
-    chainId: 137,
+    chain: "sui",
+    chainId: 0,
     decimals: 9,
     address: "0x34bE5b8C30eE4FdE069DC878989686aBE9884470",
     poolAddress: "0x13579BDF13579BDF13579BDF13579BDF13579BDF",
@@ -88,14 +101,16 @@ export const pools = [
     utilizationRate: 60,
     riskScore: 5 as 1 | 2 | 3 | 4 | 5,
     logo: "/assets/sui-logo.svg",
-    gradient: "linear-gradient(90deg, hsla(59, 86%, 68%, 1) 0%, hsla(134, 36%, 53%, 1) 100%)"
+    gradient: "linear-gradient(90deg, hsla(59, 86%, 68%, 1) 0%, hsla(134, 36%, 53%, 1) 100%)",
+    receiptToken: "xKELO-SUI",
+    bridgeProtocol: "Wormhole"
   },
   {
     id: "wapt-polygon",
     symbol: "wAPT",
     name: "Wrapped Aptos",
-    chain: "polygon",
-    chainId: 137,
+    chain: "aptos",
+    chainId: 1,
     decimals: 8,
     address: "0x89a1B84B040526b7fF350dE8FDf507E958779FB7",
     poolAddress: "0xFEDCBA9876543210FEDCBA9876543210FEDCBA98",
@@ -106,6 +121,66 @@ export const pools = [
     utilizationRate: 55,
     riskScore: 5 as 1 | 2 | 3 | 4 | 5,
     logo: "/assets/apt-logo.svg",
-    gradient: "linear-gradient(90deg, hsla(46, 73%, 75%, 1) 0%, hsla(176, 73%, 88%, 1) 100%)"
+    gradient: "linear-gradient(90deg, hsla(46, 73%, 75%, 1) 0%, hsla(176, 73%, 88%, 1) 100%)",
+    receiptToken: "xKELO-APT",
+    bridgeProtocol: "LayerZero"
   }
 ];
+
+// Create chain info based on the architecture provided
+export const chainInfo: Record<string, any> = {
+  ethereum: {
+    name: "Ethereum",
+    logo: "/assets/eth-logo.svg",
+    nativeToken: "ETH",
+    vaultType: "ERC-4626",
+    isActive: true,
+    launchPhase: "beta",
+    bridgeProtocol: "LayerZero"
+  },
+  arbitrum: {
+    name: "Arbitrum",
+    logo: "/assets/arb-logo.svg",
+    nativeToken: "ETH",
+    vaultType: "ERC-4626",
+    isActive: true,
+    launchPhase: "beta",
+    bridgeProtocol: "LayerZero"
+  },
+  avalanche: {
+    name: "Avalanche",
+    logo: "/assets/avax-logo.svg",
+    nativeToken: "AVAX",
+    vaultType: "ERC-4626",
+    isActive: true,
+    launchPhase: "beta",
+    bridgeProtocol: "LayerZero"
+  },
+  solana: {
+    name: "Solana",
+    logo: "/assets/sol-logo.svg",
+    nativeToken: "SOL",
+    vaultType: "Anchor Program",
+    isActive: false,
+    launchPhase: "v1.1",
+    estimatedLaunch: "Q1 2025"
+  },
+  aptos: {
+    name: "Aptos",
+    logo: "/assets/apt-logo.svg",
+    nativeToken: "APT",
+    vaultType: "Move Module",
+    isActive: false,
+    launchPhase: "v1.2",
+    estimatedLaunch: "Q2 2025"
+  },
+  sui: {
+    name: "Sui",
+    logo: "/assets/sui-logo.svg",
+    nativeToken: "SUI",
+    vaultType: "Move Module",
+    isActive: false,
+    launchPhase: "v1.2",
+    estimatedLaunch: "Q2 2025"
+  }
+};

@@ -5,9 +5,11 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
 import PoolCard from '@/components/invest/PoolCard';
 import ConnectWalletButton from '@/components/invest/ConnectWalletButton';
-import { pools } from '@/data/invest/pools';
+import { pools, chainInfo } from '@/data/invest/pools';
 import { Pool } from '@/types/invest';
 
 const InvestLanding = () => {
@@ -19,7 +21,7 @@ const InvestLanding = () => {
           <div className="mb-12">
             <h1 className="text-4xl font-bold mb-4">Invest in Kelo Pools</h1>
             <p className="text-xl text-gray-600 max-w-3xl">
-              Supply crypto to Kelo loan pools, fund vendor payouts instantly, and earn competitive yield from both traditional sources and BNPL interest.
+              Supply crypto to Kelo's native chain vaults, fund vendor payouts instantly, and earn competitive yield from both traditional sources and BNPL interest.
             </p>
           </div>
           
@@ -56,24 +58,147 @@ const InvestLanding = () => {
                   <div className="bg-kelo-blue bg-opacity-10 p-4 rounded-full mb-4">
                     <div className="w-12 h-12 flex items-center justify-center bg-kelo-blue text-white rounded-full font-bold">1</div>
                   </div>
-                  <h3 className="font-semibold text-lg mb-2">Deposit Crypto</h3>
-                  <p className="text-gray-600">Choose a pool and deposit your crypto assets to start earning yield</p>
+                  <h3 className="font-semibold text-lg mb-2">Deposit Native Tokens</h3>
+                  <p className="text-gray-600">Choose a pool and deposit your native chain tokens without wrapping - no extra gas fees</p>
                 </div>
                 <div className="flex flex-col items-center text-center">
                   <div className="bg-kelo-blue bg-opacity-10 p-4 rounded-full mb-4">
                     <div className="w-12 h-12 flex items-center justify-center bg-kelo-blue text-white rounded-full font-bold">2</div>
                   </div>
-                  <h3 className="font-semibold text-lg mb-2">Fund BNPL Transactions</h3>
-                  <p className="text-gray-600">Your deposits are used to pay vendors instantly when customers use Kelo BNPL</p>
+                  <h3 className="font-semibold text-lg mb-2">Earn Multi-source Yield</h3>
+                  <p className="text-gray-600">Your deposits earn yield from both native chain staking and BNPL interest payments</p>
                 </div>
                 <div className="flex flex-col items-center text-center">
                   <div className="bg-kelo-blue bg-opacity-10 p-4 rounded-full mb-4">
                     <div className="w-12 h-12 flex items-center justify-center bg-kelo-blue text-white rounded-full font-bold">3</div>
                   </div>
-                  <h3 className="font-semibold text-lg mb-2">Earn Yield</h3>
-                  <p className="text-gray-600">Receive competitive returns from both traditional yield sources and BNPL interest</p>
+                  <h3 className="font-semibold text-lg mb-2">Withdraw Anytime</h3>
+                  <p className="text-gray-600">Redeem your xKELO receipt tokens anytime, on any supported chain</p>
                 </div>
               </div>
+            </CardContent>
+          </Card>
+          
+          <Card className="mb-12">
+            <CardContent className="p-8">
+              <h2 className="text-2xl font-semibold mb-6">Omnichain Architecture</h2>
+              
+              <Tabs defaultValue="overview">
+                <TabsList className="mb-6">
+                  <TabsTrigger value="overview">Overview</TabsTrigger>
+                  <TabsTrigger value="chains">Supported Chains</TabsTrigger>
+                  <TabsTrigger value="roadmap">Roadmap</TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value="overview">
+                  <div className="space-y-6">
+                    <p className="text-gray-700">
+                      Kelo's investment module uses an innovative "Native-home vaults + Omnichain control-plane" architecture that:
+                    </p>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h3 className="font-semibold mb-2">Friction-free deposits</h3>
+                        <p className="text-gray-600">No wrapping required - deposit native tokens directly from your wallet</p>
+                      </div>
+                      
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h3 className="font-semibold mb-2">Composable liquidity</h3>
+                        <p className="text-gray-600">Capital is accessible for BNPL payouts across any chain</p>
+                      </div>
+                      
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h3 className="font-semibold mb-2">Capital efficiency</h3>
+                        <p className="text-gray-600">Tokens stay on their native chain, earning local yield with minimal bridging risk</p>
+                      </div>
+                      
+                      <div className="bg-gray-50 p-4 rounded-lg">
+                        <h3 className="font-semibold mb-2">Progressive rollout</h3>
+                        <p className="text-gray-600">Starting with EVM chains, expanding to Solana, Aptos, and Sui</p>
+                      </div>
+                    </div>
+                  </div>
+                </TabsContent>
+                
+                <TabsContent value="chains">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {Object.entries(chainInfo).map(([id, info]: [string, any]) => (
+                      <div key={id} className="bg-white border rounded-lg overflow-hidden">
+                        <div className="p-4 border-b flex items-center gap-3">
+                          <img src={info.logo} alt={info.name} className="w-8 h-8" />
+                          <h3 className="font-medium">{info.name}</h3>
+                          {info.isActive ? (
+                            <Badge className="ml-auto bg-green-100 text-green-800 hover:bg-green-100">Active</Badge>
+                          ) : (
+                            <Badge className="ml-auto bg-yellow-100 text-yellow-800 hover:bg-yellow-100">Coming {info.estimatedLaunch}</Badge>
+                          )}
+                        </div>
+                        <div className="p-4 space-y-2 text-sm">
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">Native Token</span>
+                            <span>{info.nativeToken}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">Vault Type</span>
+                            <span>{info.vaultType}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">Bridge</span>
+                            <span>{info.bridgeProtocol}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">Launch Phase</span>
+                            <span className="uppercase">{info.launchPhase}</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </TabsContent>
+                
+                <TabsContent value="roadmap">
+                  <div className="space-y-6">
+                    <div className="relative border-l-2 border-kelo-blue pl-6 pb-10">
+                      <div className="absolute w-4 h-4 bg-kelo-blue rounded-full -left-[9px] top-0"></div>
+                      <div className="mb-2">
+                        <Badge className="bg-kelo-blue mb-2">Current Phase</Badge>
+                        <h3 className="text-lg font-semibold">Alpha Pilot</h3>
+                      </div>
+                      <p className="text-gray-600 mb-2">Testing end-to-end flow with LayerZero testnet</p>
+                      <p className="text-sm text-gray-500">Ethereum Sepolia / Arbitrum Sepolia</p>
+                    </div>
+                    
+                    <div className="relative border-l-2 border-gray-300 pl-6 pb-10">
+                      <div className="absolute w-4 h-4 bg-gray-300 rounded-full -left-[9px] top-0"></div>
+                      <h3 className="text-lg font-semibold mb-2">Beta MVP</h3>
+                      <p className="text-gray-600 mb-2">Production vaults, BNPL live in Nairobi (M-Pesa integration)</p>
+                      <p className="text-sm text-gray-500">ETH, ARB, AVAX main-net</p>
+                    </div>
+                    
+                    <div className="relative border-l-2 border-gray-300 pl-6 pb-10">
+                      <div className="absolute w-4 h-4 bg-gray-300 rounded-full -left-[9px] top-0"></div>
+                      <h3 className="text-lg font-semibold mb-2">v1.1</h3>
+                      <p className="text-gray-600 mb-2">Anchor vault, OFT bridge; stakeholder UX feedback</p>
+                      <p className="text-sm text-gray-500">+ Solana</p>
+                    </div>
+                    
+                    <div className="relative border-l-2 border-gray-300 pl-6 pb-10">
+                      <div className="absolute w-4 h-4 bg-gray-300 rounded-full -left-[9px] top-0"></div>
+                      <h3 className="text-lg font-semibold mb-2">v1.2</h3>
+                      <p className="text-gray-600 mb-2">Move modules; CCIP non-EVM lane if available</p>
+                      <p className="text-sm text-gray-500">+ Aptos & Sui</p>
+                    </div>
+                    
+                    <div className="relative pl-6">
+                      <div className="absolute w-4 h-4 bg-gray-300 rounded-full -left-[9px] top-0"></div>
+                      <h3 className="text-lg font-semibold mb-2">v2</h3>
+                      <p className="text-gray-600 mb-2">Algorithmic re-balancer & DAO treasury votes</p>
+                      <p className="text-sm text-gray-500">Community decides target portfolio weights</p>
+                      <p className="text-sm text-gray-500 mt-2">Expected: Q1 2026</p>
+                    </div>
+                  </div>
+                </TabsContent>
+              </Tabs>
             </CardContent>
           </Card>
           

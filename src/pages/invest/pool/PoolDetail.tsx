@@ -5,13 +5,14 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { ArrowLeft } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { ArrowLeft, Layers } from 'lucide-react';
 import YieldChart from '@/components/invest/YieldChart';
 import RiskBadge from '@/components/invest/RiskBadge';
 import StrategyBreakdown from '@/components/invest/StrategyBreakdown';
 import DepositModal from '@/components/invest/DepositModal';
 import WithdrawModal from '@/components/invest/WithdrawModal';
-import { pools } from '@/data/invest/pools';
+import { pools, chainInfo } from '@/data/invest/pools';
 import { strategies } from '@/data/invest/strategies';
 import { historicalReturns } from '@/data/invest/historicalReturns';
 import { Pool } from '@/types/invest';
@@ -48,6 +49,8 @@ const PoolDetail = () => {
     );
   }
 
+  const chainData = chainInfo[pool.chain] || {};
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
@@ -63,9 +66,12 @@ const PoolDetail = () => {
               <img src={pool.logo} alt={pool.name} className="w-12 h-12 mr-4" />
               <div>
                 <h1 className="text-3xl font-bold">{pool.name} Pool</h1>
-                <div className="flex items-center mt-1">
-                  <span className="text-gray-600 mr-4">Risk Level:</span>
+                <div className="flex items-center mt-1 gap-2">
+                  <span className="text-gray-600">Risk Level:</span>
                   <RiskBadge riskScore={pool.riskScore} />
+                  <Badge variant="outline" className="border-kelo-blue text-kelo-blue capitalize ml-2">
+                    {pool.chain} Chain
+                  </Badge>
                 </div>
               </div>
             </div>
@@ -111,7 +117,7 @@ const PoolDetail = () => {
             </div>
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
             <div className="lg:col-span-2">
               <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
                 <div className="flex justify-between items-center mb-6">
@@ -143,6 +149,92 @@ const PoolDetail = () => {
               <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 h-full">
                 <h2 className="text-xl font-semibold mb-6">Strategy Breakdown</h2>
                 <StrategyBreakdown strategies={poolStrategies} />
+              </div>
+            </div>
+          </div>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <div className="lg:col-span-3">
+              <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                <h2 className="text-xl font-semibold mb-6 flex items-center">
+                  <Layers className="mr-2 h-5 w-5" /> Omnichain Architecture
+                </h2>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="border rounded-lg p-4">
+                    <h3 className="font-semibold mb-3">Vault Implementation</h3>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Type</span>
+                        <span>{chainData.vaultType || "Standard Vault"}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Chain</span>
+                        <span className="capitalize">{pool.chain}</span>
+                      </div>
+                      {pool.nativeStaking && (
+                        <div className="flex justify-between">
+                          <span className="text-gray-600">Native Staking</span>
+                          <span>{pool.nativeStaking}</span>
+                        </div>
+                      )}
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Status</span>
+                        <span>
+                          {chainData.isActive ? (
+                            <Badge variant="default" className="bg-green-500 text-white">Active</Badge>
+                          ) : (
+                            <Badge variant="outline">Coming Soon</Badge>
+                          )}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="border rounded-lg p-4">
+                    <h3 className="font-semibold mb-3">Cross-Chain Messaging</h3>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Bridge Protocol</span>
+                        <span>{pool.bridgeProtocol || "LayerZero"}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Message Type</span>
+                        <span>OApp / State Update</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Receipt Token</span>
+                        <span>{pool.receiptToken || `xKELO-${pool.symbol}`}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Gas Optimized</span>
+                        <span>Yes</span>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="border rounded-lg p-4">
+                    <h3 className="font-semibold mb-3">Security & Compliance</h3>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Vault Audited</span>
+                        <span>Yes</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Bridge Audited</span>
+                        <span>Yes</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Non-custodial</span>
+                        <span>Yes</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-gray-600">Immutable Records</span>
+                        <span>Yes</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

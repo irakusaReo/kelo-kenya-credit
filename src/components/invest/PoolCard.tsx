@@ -2,32 +2,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip';
 import RiskBadge from './RiskBadge';
-
-interface Pool {
-  id: string;
-  symbol: string;
-  name: string;
-  chain: string;
-  chainId: number;
-  baseAPY: number;
-  bnplAPY: number;
-  totalAPY: number;
-  tvl: number;
-  utilizationRate: number;
-  riskScore: 1 | 2 | 3 | 4 | 5;
-  logo: string;
-  gradient: string;
-}
+import { Pool } from '@/types/invest';
 
 interface PoolCardProps {
   pool: Pool;
 }
 
 const PoolCard = ({ pool }: PoolCardProps) => {
+  const isComingSoon = ['sui', 'aptos', 'solana'].includes(pool.chain);
+  
   return (
-    <Link to={`/invest/pool/${pool.symbol.toLowerCase()}`}>
-      <Card className="h-full overflow-hidden hover:shadow-md transition-shadow duration-300 cursor-pointer">
+    <Link to={isComingSoon ? '#' : `/invest/pool/${pool.symbol.toLowerCase()}`}>
+      <Card className={`h-full overflow-hidden transition-shadow duration-300 ${isComingSoon ? 'opacity-75' : 'hover:shadow-md cursor-pointer'}`}>
         <div 
           className="h-20 relative p-4 text-white flex items-center"
           style={{ background: pool.gradient }}
@@ -42,7 +31,14 @@ const PoolCard = ({ pool }: PoolCardProps) => {
             <p className="text-sm opacity-90">{pool.name}</p>
           </div>
           <div className="absolute top-3 right-3">
-            <RiskBadge riskScore={pool.riskScore} />
+            <div className="flex gap-2 items-center">
+              {isComingSoon && (
+                <Badge variant="outline" className="bg-black/30 text-white border-white">
+                  Coming Soon
+                </Badge>
+              )}
+              <RiskBadge riskScore={pool.riskScore} />
+            </div>
           </div>
         </div>
         
@@ -66,8 +62,21 @@ const PoolCard = ({ pool }: PoolCardProps) => {
               <span>KES {pool.tvl.toLocaleString()}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Utilization</span>
-              <span>{pool.utilizationRate}%</span>
+              <span className="text-gray-600">Chain</span>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span className="flex items-center">
+                      <span className="capitalize">{pool.chain}</span>
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Native {pool.chain} Vault</p>
+                    {pool.receiptToken && <p>Receipt: {pool.receiptToken}</p>}
+                    {pool.bridgeProtocol && <p>Bridge: {pool.bridgeProtocol}</p>}
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
           </div>
         </div>

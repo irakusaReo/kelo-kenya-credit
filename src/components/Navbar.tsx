@@ -41,6 +41,22 @@ const Navbar = () => {
               </Link>
             </div>
           </div>
+          <div className="relative group">
+            <button className="flex items-center text-sm font-medium text-kelo-text hover:text-kelo-blue transition-colors">
+              Invest <ChevronDown className="ml-1 h-4 w-4" />
+            </button>
+            <div className="absolute left-0 top-full w-48 p-2 hidden group-hover:block bg-white rounded-md shadow-lg border border-gray-100 z-20">
+              <Link to="/invest" className="block px-3 py-2 text-sm rounded-md hover:bg-gray-50">
+                Investment Pools
+              </Link>
+              <Link to="/invest/dashboard" className="block px-3 py-2 text-sm rounded-md hover:bg-gray-50">
+                Investor Dashboard
+              </Link>
+              <Link to="/treasury" className="block px-3 py-2 text-sm rounded-md hover:bg-gray-50">
+                Treasury Management
+              </Link>
+            </div>
+          </div>
           <Link to="/about" className="text-sm font-medium text-kelo-text hover:text-kelo-blue transition-colors">
             About Us
           </Link>
@@ -82,6 +98,18 @@ const Navbar = () => {
             <Link to="/merchant" className="px-6 py-2 text-base" onClick={toggleMenu}>
               For Merchants
             </Link>
+            
+            <div className="px-3 py-2 text-lg font-medium">Invest</div>
+            <Link to="/invest" className="px-6 py-2 text-base" onClick={toggleMenu}>
+              Investment Pools
+            </Link>
+            <Link to="/invest/dashboard" className="px-6 py-2 text-base" onClick={toggleMenu}>
+              Investor Dashboard
+            </Link>
+            <Link to="/treasury" className="px-6 py-2 text-base" onClick={toggleMenu}>
+              Treasury Management
+            </Link>
+            
             <Link to="/about" className="px-3 py-2 text-lg font-medium" onClick={toggleMenu}>
               About Us
             </Link>

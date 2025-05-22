@@ -8,6 +8,7 @@ import HowItWorks from '@/components/HowItWorks';
 import Testimonials from '@/components/Testimonials';
 import CallToAction from '@/components/CallToAction';
 import Footer from '@/components/Footer';
+import InvestmentSection from '@/components/InvestmentSection';
 import { Button } from '@/components/ui/button';
 import { verticals } from '@/data/verticals';
 import { products } from '@/data/products';
@@ -76,6 +77,9 @@ const Index = () => {
             </div>
           </div>
         </section>
+        
+        {/* Investment Section */}
+        <InvestmentSection />
         
         {/* New section: Featured Products */}
         <section className="section-padding bg-white">
