@@ -59,7 +59,7 @@ const TreasuryRisk = () => {
                     </div>
                     <div>
                       <p className="font-medium text-sm">Oracle Price Delay</p>
-                      <p className="text-xs text-gray-600">AVAX price feed delayed by >10 minutes</p>
+                      <p className="text-xs text-gray-600">AVAX price feed delayed by {'>'}10 minutes</p>
                     </div>
                   </div>
                   
