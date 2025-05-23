@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -8,8 +7,12 @@ const Footer = () => {
       <div className="kelo-container py-12 md:py-16">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div>
-            <div className="h-8 w-32 bg-white rounded-md flex items-center justify-center text-kelo-blue font-bold mb-6">
-              KELO
+            <div className="mb-6">
+              <img 
+                src="/lovable-uploads/1241de2e-0924-4cfa-85f4-346437058db7.png" 
+                alt="Kelopay Logo" 
+                className="h-12 w-auto"
+              />
             </div>
             <p className="text-gray-400 max-w-xs">
               Web3-powered Buy Now, Pay Later platform for Nairobi's consumers and informal SMEs.
