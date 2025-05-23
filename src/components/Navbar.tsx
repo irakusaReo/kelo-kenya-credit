@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -124,12 +125,12 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="md:hidden fixed inset-0 top-16 bg-white z-40 p-4">
-          <nav className="flex flex-col space-y-4">
+        <div className="md:hidden fixed inset-0 top-16 bg-white z-50 overflow-y-auto h-[calc(100vh-4rem)] shadow-lg">
+          <nav className="flex flex-col space-y-4 p-6">
             <Link to="/" className="px-3 py-2 text-lg font-medium" onClick={toggleMenu}>
               Home
             </Link>
-            <div className="px-3 py-2 text-lg font-medium">Products</div>
+            <div className="px-3 py-2 text-lg font-medium border-b pb-2">Products</div>
             <Link to="/consumer" className="px-6 py-2 text-base" onClick={toggleMenu}>
               For Consumers
             </Link>
@@ -137,7 +138,7 @@ const Navbar = () => {
               For Merchants
             </Link>
             
-            <div className="px-3 py-2 text-lg font-medium">Invest</div>
+            <div className="px-3 py-2 text-lg font-medium border-b pb-2 mt-2">Invest</div>
             <Link to="/invest" className="px-6 py-2 text-base" onClick={toggleMenu}>
               Investment Pools
             </Link>
