@@ -1,58 +1,77 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import MainLayout from '@/components/layouts/MainLayout';
 import { Card, CardContent } from '@/components/ui/card';
 import { verticals } from '@/data/verticals';
+import { partners } from '@/data/partners';
 
 const Marketplace = () => {
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-grow">
-        <section className="section-padding bg-kelo-background">
-          <div className="kelo-container">
-            <div className="max-w-3xl mx-auto text-center mb-12">
-              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl mb-4">Kelo Marketplace</h1>
-              <p className="text-xl text-gray-600">
-                Buy now, pay later with Kelo across these categories
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {verticals.map((vertical) => (
-                <Link key={vertical.slug} to={`/vertical/${vertical.slug}`}>
-                  <Card className="h-full overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                    <div className="h-48 bg-gray-100 relative overflow-hidden">
-                      <img 
-                        src={vertical.heroImage} 
-                        alt={vertical.name} 
-                        className="w-full h-full object-cover"
-                      />
-                      {vertical.badge && (
-                        <div className="absolute top-4 right-4 bg-kelo-gold text-kelo-text px-3 py-1 rounded-full text-sm font-medium">
-                          {vertical.badge}
-                        </div>
-                      )}
-                    </div>
-                    <CardContent className="p-6">
-                      <h3 className="text-xl font-semibold mb-2">{vertical.name}</h3>
-                      <p className="text-gray-600">{vertical.description}</p>
-                      <div className="mt-4 flex justify-between items-center">
-                        <span className="text-sm text-gray-500">{vertical.partnersCount} Partners</span>
-                        <span className="text-kelo-blue font-medium">Explore →</span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              ))}
-            </div>
+    <MainLayout>
+      <div className="bg-kelo-blue text-white py-20">
+        <div className="kelo-container">
+          <div className="max-w-2xl">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Shop Now, Pay Later</h1>
+            <p className="text-lg opacity-90 mb-6">
+              Browse our partners across different categories and shop flexibly with Kelo's payment plans.
+            </p>
           </div>
-        </section>
-      </main>
-      <Footer />
-    </div>
+        </div>
+      </div>
+
+      {/* Categories Section */}
+      <section className="section-padding bg-kelo-background">
+        <div className="kelo-container">
+          <h2 className="text-2xl font-semibold mb-8">Shop by Category</h2>
+          
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            {verticals.map((vertical) => (
+              <Link to={`/vertical/${vertical.slug}`} key={vertical.id}>
+                <Card className="hover:shadow-md transition-shadow duration-300 h-full">
+                  <CardContent className="p-4 flex flex-col items-center text-center">
+                    <div className="w-16 h-16 mb-3 flex items-center justify-center">
+                      <img 
+                        src={vertical.icon} 
+                        alt={vertical.name} 
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                    <h3 className="font-medium">{vertical.name}</h3>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Partners Section */}
+      <section className="section-padding bg-white">
+        <div className="kelo-container">
+          <h2 className="text-2xl font-semibold mb-8">Our Partners</h2>
+          
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+            {partners.map((partner) => (
+              <Link to={`/partner/${partner.id}`} key={partner.id}>
+                <Card className="hover:shadow-md transition-shadow duration-300 h-full">
+                  <CardContent className="p-6 flex flex-col items-center justify-center text-center h-full">
+                    <div className="w-full h-24 mb-4 flex items-center justify-center">
+                      <img 
+                        src={partner.logo} 
+                        alt={partner.name} 
+                        className="max-w-full max-h-full object-contain"
+                      />
+                    </div>
+                    <h3 className="font-medium">{partner.name}</h3>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+    </MainLayout>
   );
 };
 

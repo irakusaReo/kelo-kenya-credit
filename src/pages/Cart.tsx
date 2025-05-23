@@ -1,8 +1,7 @@
 
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import MainLayout from '@/components/layouts/MainLayout';
 import { Button } from '@/components/ui/button';
 import { useCartStore } from '@/stores/cartStore';
 import { Trash2 } from 'lucide-react';
@@ -18,9 +17,8 @@ const Cart = () => {
   };
   
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-grow section-padding bg-kelo-background">
+    <MainLayout showFloatingCart={false}>
+      <div className="section-padding bg-kelo-background">
         <div className="kelo-container">
           <h1 className="text-3xl font-bold mb-8">Your Cart</h1>
           
@@ -135,9 +133,8 @@ const Cart = () => {
             </div>
           )}
         </div>
-      </main>
-      <Footer />
-    </div>
+      </div>
+    </MainLayout>
   );
 };
 

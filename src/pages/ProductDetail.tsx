@@ -1,8 +1,6 @@
-
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import MainLayout from '@/components/layouts/MainLayout';
 import { Button } from '@/components/ui/button';
 import { products as staticProducts } from '@/data/products';
 import { partners } from '@/data/partners';
@@ -89,9 +87,8 @@ const ProductDetail = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-grow section-padding bg-kelo-background">
+      <MainLayout>
+        <div className="section-padding bg-kelo-background">
           <div className="kelo-container">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
               <Skeleton className="h-96 w-full" />
@@ -105,9 +102,8 @@ const ProductDetail = () => {
               </div>
             </div>
           </div>
-        </main>
-        <Footer />
-      </div>
+        </div>
+      </MainLayout>
     );
   }
 
@@ -116,9 +112,8 @@ const ProductDetail = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <main className="flex-grow section-padding bg-kelo-background">
+    <MainLayout>
+      <div className="section-padding bg-kelo-background">
         <div className="kelo-container">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {/* Product Image */}
@@ -219,9 +214,8 @@ const ProductDetail = () => {
             </div>
           </div>
         </div>
-      </main>
-      <Footer />
-    </div>
+      </div>
+    </MainLayout>
   );
 };
 
