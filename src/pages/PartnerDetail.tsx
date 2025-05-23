@@ -57,7 +57,7 @@ const PartnerDetail = () => {
               partnerLogo: currentPartner.logo
             }));
           
-          setProducts(partnerProducts);
+          setProducts(partnerProducts as MappedProduct[]);
         }
         
         setLoading(false);
