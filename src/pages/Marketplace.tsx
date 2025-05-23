@@ -31,11 +31,10 @@ const Marketplace = () => {
                 <Card className="hover:shadow-md transition-shadow duration-300 h-full">
                   <CardContent className="p-4 flex flex-col items-center text-center">
                     <div className="w-16 h-16 mb-3 flex items-center justify-center">
-                      <img 
-                        src={vertical.icon} 
-                        alt={vertical.name} 
-                        className="w-full h-full object-contain"
-                      />
+                      {/* Using the first letter of the vertical name instead of an icon */}
+                      <div className="w-12 h-12 rounded-full bg-kelo-blue/10 flex items-center justify-center text-kelo-blue text-2xl font-bold">
+                        {vertical.name.charAt(0)}
+                      </div>
                     </div>
                     <h3 className="font-medium">{vertical.name}</h3>
                   </CardContent>
