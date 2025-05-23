@@ -35,15 +35,15 @@ const Hero = () => {
           </div>
           <h1 className="animate-fade-in animate-delay-100 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
             <span className="text-gradient">Shop Now, Pay Later</span><br />
-            <span className="text-kelo-neutral">for Nairobi's Future</span>
+            <span>for Nairobi's Future</span>
           </h1>
-          <p className="animate-fade-in animate-delay-200 mt-6 text-lg leading-8 text-kelo-neutral max-w-2xl mx-auto">
+          <p className="animate-fade-in animate-delay-200 mt-6 text-lg leading-8 text-gray-600 max-w-2xl mx-auto">
             Kelo provides instant credit access for consumers and small business owners in Kenya, 
             powered by blockchain technology and integrated with M-Pesa for seamless payments.
           </p>
           <div className="animate-fade-in animate-delay-300 mt-10 flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/register">
-              <Button size="lg" className="bg-kelo-primary hover:bg-kelo-primary/90 text-white">
+              <Button size="lg" className="bg-kelo-blue hover:bg-kelo-blue/90 text-white">
                 Get Started <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </Link>
@@ -60,11 +60,11 @@ const Hero = () => {
             <div className="aspect-[16/9] bg-gradient-to-r from-blue-50 to-teal-50 p-6 flex items-center justify-center">
               <div className="text-center">
                 <div className="flex justify-center mb-4">
-                  <div className="h-16 w-16 rounded-full bg-kelo-primary/10 flex items-center justify-center">
-                    <div className="h-8 w-8 rounded-full bg-kelo-primary"></div>
+                  <div className="h-16 w-16 rounded-full bg-kelo-blue/10 flex items-center justify-center">
+                    <div className="h-8 w-8 rounded-full bg-kelo-blue"></div>
                   </div>
                 </div>
-                <h3 className="text-xl font-medium text-kelo-neutral">Kelo Dashboard Preview</h3>
+                <h3 className="text-xl font-medium text-gray-900">Kelo Dashboard Preview</h3>
                 <p className="mt-2 text-sm text-gray-500">Secure, transparent credit management</p>
               </div>
             </div>
