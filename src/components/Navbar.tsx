@@ -26,10 +26,12 @@ const Navbar = () => {
       <div className="kelo-container flex h-16 items-center justify-between">
         <div className="flex items-center">
           <Link to="/" className="flex items-center">
-            {/* Logo placeholder - will use kelo_logo.svg when uploaded */}
-            <div className="h-8 w-32 bg-kelo-blue rounded-md flex items-center justify-center text-white font-bold">
-              KELO
-            </div>
+            {/* Using the provided Kelo logo */}
+            <img 
+              src="/lovable-uploads/a03e0792-11a9-4fee-9c3e-f16e0c82aee2.png" 
+              alt="Kelo Logo" 
+              className="h-10 w-auto"
+            />
           </Link>
         </div>
 
