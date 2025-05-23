@@ -92,7 +92,7 @@ export const partners = [
   {
     id: "baobabs",
     name: "Beneath The Baobabs",
-    logo: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
+    logo: "https://placekitten.com/200/200", // Placeholder
     description: "Kenya's premier festival venue and event series.",
     verticalId: "event",
     featured: true,
@@ -104,7 +104,7 @@ export const partners = [
   {
     id: "blankets",
     name: "Blankets & Wine",
-    logo: "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
+    logo: "https://placekitten.com/201/201", // Placeholder
     description: "Nairobi's favorite afro-based music festival.",
     verticalId: "event",
     featured: true,
@@ -130,7 +130,7 @@ export const partners = [
   {
     id: "bonfire",
     name: "Bonfire Adventures",
-    logo: "https://images.unsplash.com/photo-1527631746610-bca00a040d60?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
+    logo: "https://placekitten.com/202/202", // Placeholder
     description: "Kenya's leading tour operator for local and international packages.",
     verticalId: "travel",
     featured: true,
@@ -144,7 +144,7 @@ export const partners = [
   {
     id: "hotpoint",
     name: "Hotpoint Appliances",
-    logo: "https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
+    logo: "https://placekitten.com/203/203", // Placeholder
     description: "Leading retailer for home appliances and electronics.",
     verticalId: "home",
     featured: true,
@@ -156,7 +156,7 @@ export const partners = [
   {
     id: "moko",
     name: "Moko Home + Living",
-    logo: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80",
+    logo: "https://placekitten.com/204/204", // Placeholder
     description: "Quality furniture and home accessories.",
     verticalId: "home",
     featured: true,

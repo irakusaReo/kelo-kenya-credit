@@ -5,7 +5,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
-import { ThemeProvider } from "@/components/ThemeProvider";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -44,59 +43,57 @@ import TreasuryRisk from "./pages/treasury/Risk";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <ThemeProvider defaultTheme="light">
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/faqs" element={<FAQs />} />
-              
-              {/* New routes for sections in navbar */}
-              <Route path="/consumer" element={<Marketplace />} />
-              <Route path="/merchant" element={<VendorSignup />} />
-              
-              {/* New routes */}
-              <Route path="/marketplace" element={<Marketplace />} />
-              <Route path="/vertical/:slug" element={<VerticalDetail />} />
-              <Route path="/partner/:id" element={<PartnerDetail />} />
-              <Route path="/product/:id" element={<ProductDetail />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/checkout" element={<Checkout />} />
-              <Route path="/success" element={<Success />} />
-              
-              {/* Vendor Portal Routes */}
-              <Route path="/vendor/signup" element={<VendorSignup />} />
-              <Route path="/vendor/login" element={<VendorLogin />} />
-              <Route path="/vendor/dashboard" element={<VendorDashboard />} />
-              <Route path="/vendor/products" element={<VendorProducts />} />
-              <Route path="/vendor/analytics" element={<VendorAnalytics />} />
-              
-              {/* User Credit Scoring Routes */}
-              <Route path="/user/credit/upload" element={<UserCreditUpload />} />
-              <Route path="/user/credit/review" element={<UserCreditReview />} />
-              
-              {/* Investor Yield Module Routes */}
-              <Route path="/invest" element={<InvestLanding />} />
-              <Route path="/invest/pool/:symbol" element={<PoolDetail />} />
-              <Route path="/invest/dashboard" element={<InvestorDashboard />} />
-              <Route path="/treasury" element={<TreasuryDashboard />} />
-              <Route path="/treasury/risk" element={<TreasuryRisk />} />
-              
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </TooltipProvider>
-      </AuthProvider>
-    </QueryClientProvider>
-  </ThemeProvider>
+  <QueryClientProvider client={queryClient}>
+    <AuthProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/faqs" element={<FAQs />} />
+            
+            {/* New routes for sections in navbar */}
+            <Route path="/consumer" element={<Marketplace />} />
+            <Route path="/merchant" element={<VendorSignup />} />
+            
+            {/* New routes */}
+            <Route path="/marketplace" element={<Marketplace />} />
+            <Route path="/vertical/:slug" element={<VerticalDetail />} />
+            <Route path="/partner/:id" element={<PartnerDetail />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/success" element={<Success />} />
+            
+            {/* Vendor Portal Routes */}
+            <Route path="/vendor/signup" element={<VendorSignup />} />
+            <Route path="/vendor/login" element={<VendorLogin />} />
+            <Route path="/vendor/dashboard" element={<VendorDashboard />} />
+            <Route path="/vendor/products" element={<VendorProducts />} />
+            <Route path="/vendor/analytics" element={<VendorAnalytics />} />
+            
+            {/* User Credit Scoring Routes */}
+            <Route path="/user/credit/upload" element={<UserCreditUpload />} />
+            <Route path="/user/credit/review" element={<UserCreditReview />} />
+            
+            {/* Investor Yield Module Routes */}
+            <Route path="/invest" element={<InvestLanding />} />
+            <Route path="/invest/pool/:symbol" element={<PoolDetail />} />
+            <Route path="/invest/dashboard" element={<InvestorDashboard />} />
+            <Route path="/treasury" element={<TreasuryDashboard />} />
+            <Route path="/treasury/risk" element={<TreasuryRisk />} />
+            
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </AuthProvider>
+  </QueryClientProvider>
 );
 
 export default App;
