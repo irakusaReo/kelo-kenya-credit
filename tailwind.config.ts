@@ -63,15 +63,13 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Kelo brand colors - Nairobi Sunrise palette
+				// Kelo brand colors
 				kelo: {
-					primary: '#006D5B',    // Deep Teal
-					secondary: '#FFC857',  // Warm Amber
-					accent: '#F5F5F5',     // Soft Dove
-					neutral: '#333333',    // Dark Charcoal
-					success: '#28A745',    // Success Green
-					background: '#F5F7FA', // Keep existing background
-					text: '#1E1E1E'        // Keep existing text color
+					blue: '#045DE9',
+					teal: '#35A29F',
+					gold: '#FFC20E',
+					text: '#1E1E1E',
+					background: '#F5F7FA'
 				}
 			},
 			borderRadius: {
