@@ -6,7 +6,7 @@ import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import ConnectWalletButton from '@/components/invest/ConnectWalletButton';
+import EnhancedConnectWalletButton from '@/components/invest/EnhancedConnectWalletButton';
 import PortfolioSummary from '@/components/invest/PortfolioSummary';
 import PortfolioPositions from '@/components/invest/PortfolioPositions';
 import PortfolioChart from '@/components/invest/PortfolioChart';
