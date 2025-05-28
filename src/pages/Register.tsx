@@ -99,7 +99,7 @@ const Register = () => {
           </div>
           
           {/* Alternative Sign-Up Methods */}
-          <div className="bg-white p-8 shadow-md rounded-xl border border-gray-100">
+          <div className="bg-white p-6 sm:p-8 shadow-md rounded-xl border border-gray-100">
             <div className="space-y-4 mb-6">
               <Button 
                 variant="outline" 
@@ -117,11 +117,14 @@ const Register = () => {
               />
             </div>
             
-            {/* Separator */}
-            <div className="flex items-center my-6">
-              <Separator className="flex-grow" />
-              <span className="px-4 text-sm text-gray-500">OR</span>
-              <Separator className="flex-grow" />
+            {/* Improved mobile-responsive separator */}
+            <div className="relative my-6">
+              <div className="absolute inset-0 flex items-center">
+                <Separator className="w-full" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-white px-2 text-gray-500">OR</span>
+              </div>
             </div>
           
             <form className="space-y-6" onSubmit={handleSubmit}>

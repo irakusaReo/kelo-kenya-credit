@@ -14,7 +14,8 @@ import {
   User, 
   Building, 
   CreditCard,
-  Target
+  Target,
+  Camera
 } from 'lucide-react';
 import MainLayout from '@/components/layouts/MainLayout';
 import { useAuth } from '@/contexts/AuthContext';
@@ -25,6 +26,10 @@ const Tutorial = () => {
   const { user, updateProfile } = useAuth();
   const [currentStep, setCurrentStep] = useState(0);
   const [tutorialData, setTutorialData] = useState({
+    firstName: '',
+    lastName: '',
+    username: '',
+    dateOfBirth: '',
     profilePicture: '',
     bio: '',
     occupation: '',
@@ -42,6 +47,12 @@ const Tutorial = () => {
       description: 'Let\'s get you set up as a vendor',
       icon: CheckCircle,
       content: 'welcome'
+    },
+    {
+      title: 'Personal Details',
+      description: 'Tell us about yourself',
+      icon: User,
+      content: 'personal'
     },
     {
       title: 'Business Information',
@@ -69,7 +80,7 @@ const Tutorial = () => {
       content: 'welcome'
     },
     {
-      title: 'Personal Information',
+      title: 'Personal Details',
       description: 'Tell us about yourself',
       icon: User,
       content: 'personal'
@@ -92,7 +103,26 @@ const Tutorial = () => {
     setTutorialData(prev => ({ ...prev, [field]: value }));
   };
 
+  const isCurrentStepValid = () => {
+    const step = steps[currentStep];
+    switch (step.content) {
+      case 'personal':
+        return tutorialData.firstName && tutorialData.lastName && tutorialData.username && tutorialData.dateOfBirth;
+      default:
+        return true;
+    }
+  };
+
   const handleNext = () => {
+    if (!isCurrentStepValid()) {
+      toast({
+        title: "Please fill required fields",
+        description: "Some mandatory fields are missing.",
+        variant: "destructive"
+      });
+      return;
+    }
+
     if (currentStep < steps.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
@@ -154,10 +184,62 @@ const Tutorial = () => {
         return (
           <div className="space-y-6">
             <div className="text-center mb-6">
-              <h2 className="text-xl font-bold mb-2">Tell us about yourself</h2>
-              <p className="text-gray-600">This information helps us provide better recommendations</p>
+              <h2 className="text-xl font-bold mb-2">Personal Details</h2>
+              <p className="text-gray-600">Please fill in your basic information</p>
             </div>
             <div className="space-y-4">
+              <div className="text-center mb-4">
+                <div className="mx-auto w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-2">
+                  <Camera className="h-8 w-8 text-gray-400" />
+                </div>
+                <Button variant="outline" size="sm">Upload Photo (Optional)</Button>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="firstName">First Name *</Label>
+                  <Input
+                    id="firstName"
+                    placeholder="John"
+                    value={tutorialData.firstName}
+                    onChange={(e) => handleInputChange('firstName', e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="lastName">Last Name *</Label>
+                  <Input
+                    id="lastName"
+                    placeholder="Doe"
+                    value={tutorialData.lastName}
+                    onChange={(e) => handleInputChange('lastName', e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label htmlFor="username">Username *</Label>
+                <Input
+                  id="username"
+                  placeholder="johndoe"
+                  value={tutorialData.username}
+                  onChange={(e) => handleInputChange('username', e.target.value)}
+                  required
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="dateOfBirth">Date of Birth *</Label>
+                <Input
+                  id="dateOfBirth"
+                  type="date"
+                  value={tutorialData.dateOfBirth}
+                  onChange={(e) => handleInputChange('dateOfBirth', e.target.value)}
+                  required
+                />
+              </div>
+
               <div>
                 <Label htmlFor="bio">Bio (Optional)</Label>
                 <Textarea
@@ -167,6 +249,7 @@ const Tutorial = () => {
                   onChange={(e) => handleInputChange('bio', e.target.value)}
                 />
               </div>
+              
               <div>
                 <Label htmlFor="occupation">Occupation (Optional)</Label>
                 <Input
@@ -324,21 +407,21 @@ const Tutorial = () => {
 
   return (
     <MainLayout showFloatingCart={false}>
-      <div className="min-h-screen bg-gray-50 py-8">
-        <div className="kelo-container max-w-2xl mx-auto">
+      <div className="min-h-screen bg-gray-50 py-4 sm:py-8">
+        <div className="kelo-container max-w-2xl mx-auto px-4">
           <Card>
             <CardHeader>
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-kelo-primary/10 rounded-lg">
                     <CurrentStepIcon className="h-6 w-6 text-kelo-primary" />
                   </div>
                   <div>
-                    <CardTitle>{steps[currentStep].title}</CardTitle>
-                    <CardDescription>{steps[currentStep].description}</CardDescription>
+                    <CardTitle className="text-lg sm:text-xl">{steps[currentStep].title}</CardTitle>
+                    <CardDescription className="text-sm">{steps[currentStep].description}</CardDescription>
                   </div>
                 </div>
-                <Button variant="ghost" onClick={skipTutorial}>
+                <Button variant="ghost" onClick={skipTutorial} size="sm" className="self-start sm:self-center">
                   Skip for now
                 </Button>
               </div>
@@ -368,6 +451,7 @@ const Tutorial = () => {
                 <Button
                   onClick={handleNext}
                   className="bg-kelo-primary hover:bg-kelo-primary/90"
+                  disabled={!isCurrentStepValid() && steps[currentStep].content === 'personal'}
                 >
                   {currentStep === steps.length - 1 ? 'Complete' : 'Next'}
                   {currentStep !== steps.length - 1 && <ArrowRight className="ml-2 h-4 w-4" />}
