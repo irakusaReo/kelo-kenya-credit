@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -319,6 +320,9 @@ const Tutorial = () => {
     }
   };
 
+  // Get the current step's icon component
+  const CurrentStepIcon = steps[currentStep].icon;
+
   return (
     <MainLayout showFloatingCart={false}>
       <div className="min-h-screen bg-gray-50 py-8">
@@ -328,7 +332,7 @@ const Tutorial = () => {
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center space-x-3">
                   <div className="p-2 bg-kelo-primary/10 rounded-lg">
-                    <steps[currentStep].icon className="h-6 w-6 text-kelo-primary" />
+                    <CurrentStepIcon className="h-6 w-6 text-kelo-primary" />
                   </div>
                   <div>
                     <CardTitle>{steps[currentStep].title}</CardTitle>
