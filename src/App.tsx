@@ -12,6 +12,8 @@ import Dashboard from "./pages/Dashboard";
 import About from "./pages/About";
 import FAQs from "./pages/FAQs";
 import NotFound from "./pages/NotFound";
+import Profile from "./pages/Profile";
+import Tutorial from "./pages/Tutorial";
 
 // New pages
 import Marketplace from "./pages/Marketplace";
