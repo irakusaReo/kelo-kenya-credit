@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -34,7 +33,7 @@ const Tutorial = () => {
     businessType: '',
     businessDescription: '',
     monthlyRevenue: '',
-    goals: []
+    goals: [] as string[]
   });
 
   const steps = user?.isVendor ? [
@@ -89,7 +88,7 @@ const Tutorial = () => {
     }
   ];
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (field: string, value: string | string[]) => {
     setTutorialData(prev => ({ ...prev, [field]: value }));
   };
 

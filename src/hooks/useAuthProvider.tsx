@@ -2,6 +2,7 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { toast } from '@/hooks/use-toast';
+import type { SupportedChain, SupportedWallet } from '@/contexts/AuthContext';
 
 export const useAuthProvider = () => {
   const auth = useAuth();
@@ -45,9 +46,9 @@ export const useAuthProvider = () => {
     }
   };
   
-  const loginWithWallet = async (address: string) => {
+  const loginWithWallet = async (address: string, chain: SupportedChain, wallet: SupportedWallet) => {
     try {
-      await auth.connectWallet(address);
+      await auth.connectWallet(address, chain, wallet);
       toast({
         title: "Wallet connected",
         description: "Your wallet is now connected to Kelo!"
