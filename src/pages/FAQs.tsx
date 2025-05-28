@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -21,7 +20,7 @@ const FAQs = () => {
     },
     {
       question: "What chains are supported?",
-      answer: "Currently, we support Ethereum, Arbitrum, and Avalanche, with plans to add Solana, Aptos, and Sui in future updates."
+      answer: "Currently, we support Ethereum, Arbitrum, Avalanche, Solana, Aptos, Sui, Celo, and Starknet. Our omnichain architecture allows you to deposit native tokens directly without wrapping, while maintaining composable liquidity across all supported chains."
     },
     {
       question: "What is the minimum investment amount?",

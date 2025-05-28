@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -117,13 +116,13 @@ const Register = () => {
               />
             </div>
             
-            {/* Improved mobile-responsive separator */}
+            {/* Fixed mobile-responsive separator */}
             <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
-                <Separator className="w-full" />
+                <div className="w-full border-t border-gray-300"></div>
               </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-white px-2 text-gray-500">OR</span>
+              <div className="relative flex justify-center">
+                <span className="bg-white px-4 text-sm text-gray-500 uppercase tracking-wide">OR</span>
               </div>
             </div>
           

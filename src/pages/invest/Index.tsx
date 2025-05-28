@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
@@ -127,11 +126,7 @@ const InvestLanding = () => {
                         <div className="p-4 border-b flex items-center gap-3">
                           <img src={info.logo} alt={info.name} className="w-8 h-8" />
                           <h3 className="font-medium">{info.name}</h3>
-                          {info.isActive ? (
-                            <Badge className="ml-auto bg-green-100 text-green-800 hover:bg-green-100">Active</Badge>
-                          ) : (
-                            <Badge className="ml-auto bg-yellow-100 text-yellow-800 hover:bg-yellow-100">Coming {info.estimatedLaunch}</Badge>
-                          )}
+                          <Badge className="ml-auto bg-green-100 text-green-800 hover:bg-green-100">Live</Badge>
                         </div>
                         <div className="p-4 space-y-2 text-sm">
                           <div className="flex justify-between">
@@ -144,11 +139,11 @@ const InvestLanding = () => {
                           </div>
                           <div className="flex justify-between">
                             <span className="text-gray-600">Bridge</span>
-                            <span>{info.bridgeProtocol}</span>
+                            <span>{info.bridgeProtocol || 'Native'}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span className="text-gray-600">Launch Phase</span>
-                            <span className="uppercase">{info.launchPhase}</span>
+                            <span className="text-gray-600">Status</span>
+                            <span className="uppercase text-green-600 font-medium">{info.launchPhase}</span>
                           </div>
                         </div>
                       </div>
@@ -162,31 +157,17 @@ const InvestLanding = () => {
                       <div className="absolute w-4 h-4 bg-kelo-blue rounded-full -left-[9px] top-0"></div>
                       <div className="mb-2">
                         <Badge className="bg-kelo-blue mb-2">Current Phase</Badge>
-                        <h3 className="text-lg font-semibold">Alpha Pilot</h3>
+                        <h3 className="text-lg font-semibold">Multi-chain Live</h3>
                       </div>
-                      <p className="text-gray-600 mb-2">Testing end-to-end flow with LayerZero testnet</p>
-                      <p className="text-sm text-gray-500">Ethereum Sepolia / Arbitrum Sepolia</p>
+                      <p className="text-gray-600 mb-2">All supported chains are now live with full functionality</p>
+                      <p className="text-sm text-gray-500">Ethereum, Arbitrum, Avalanche, Solana, Aptos, Sui, Celo, Starknet</p>
                     </div>
                     
                     <div className="relative border-l-2 border-gray-300 pl-6 pb-10">
                       <div className="absolute w-4 h-4 bg-gray-300 rounded-full -left-[9px] top-0"></div>
-                      <h3 className="text-lg font-semibold mb-2">Beta MVP</h3>
-                      <p className="text-gray-600 mb-2">Production vaults, BNPL live in Nairobi (M-Pesa integration)</p>
-                      <p className="text-sm text-gray-500">ETH, ARB, AVAX main-net</p>
-                    </div>
-                    
-                    <div className="relative border-l-2 border-gray-300 pl-6 pb-10">
-                      <div className="absolute w-4 h-4 bg-gray-300 rounded-full -left-[9px] top-0"></div>
-                      <h3 className="text-lg font-semibold mb-2">v1.1</h3>
-                      <p className="text-gray-600 mb-2">Anchor vault, OFT bridge; stakeholder UX feedback</p>
-                      <p className="text-sm text-gray-500">+ Solana</p>
-                    </div>
-                    
-                    <div className="relative border-l-2 border-gray-300 pl-6 pb-10">
-                      <div className="absolute w-4 h-4 bg-gray-300 rounded-full -left-[9px] top-0"></div>
-                      <h3 className="text-lg font-semibold mb-2">v1.2</h3>
-                      <p className="text-gray-600 mb-2">Move modules; CCIP non-EVM lane if available</p>
-                      <p className="text-sm text-gray-500">+ Aptos & Sui</p>
+                      <h3 className="text-lg font-semibold mb-2">Enhanced Features</h3>
+                      <p className="text-gray-600 mb-2">Advanced portfolio management and analytics tools</p>
+                      <p className="text-sm text-gray-500">Expected: Q2 2025</p>
                     </div>
                     
                     <div className="relative pl-6">

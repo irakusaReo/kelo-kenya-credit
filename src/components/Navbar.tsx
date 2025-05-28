@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -15,10 +14,14 @@ import {
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
+  const [mobileInvestOpen, setMobileInvestOpen] = useState(false);
   const { user, isAuthenticated, logout } = useAuth();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+    setMobileProductsOpen(false);
+    setMobileInvestOpen(false);
   };
 
   return (
@@ -139,37 +142,64 @@ const Navbar = () => {
       {/* Mobile Navigation */}
       {isMenuOpen && (
         <div className="md:hidden fixed inset-0 top-16 bg-white z-50 overflow-y-auto h-[calc(100vh-4rem)] shadow-lg">
-          <nav className="flex flex-col space-y-4 p-6">
-            <Link to="/" className="px-3 py-2 text-lg font-medium" onClick={toggleMenu}>
+          <nav className="flex flex-col p-6">
+            <Link to="/" className="px-3 py-3 text-lg font-medium border-b border-gray-100" onClick={toggleMenu}>
               Home
             </Link>
-            <div className="px-3 py-2 text-lg font-medium border-b pb-2">Products</div>
-            <Link to="/consumer" className="px-6 py-2 text-base" onClick={toggleMenu}>
-              For Consumers
-            </Link>
-            <Link to="/merchant" className="px-6 py-2 text-base" onClick={toggleMenu}>
-              For Merchants
-            </Link>
             
-            <div className="px-3 py-2 text-lg font-medium border-b pb-2 mt-2">Invest</div>
-            <Link to="/invest" className="px-6 py-2 text-base" onClick={toggleMenu}>
-              Investment Pools
-            </Link>
-            <Link to="/invest/dashboard" className="px-6 py-2 text-base" onClick={toggleMenu}>
-              Investor Dashboard
-            </Link>
-            <Link to="/treasury" className="px-6 py-2 text-base" onClick={toggleMenu}>
-              Treasury Management
-            </Link>
+            {/* Mobile Products Dropdown */}
+            <div className="border-b border-gray-100">
+              <button 
+                className="flex items-center justify-between w-full px-3 py-3 text-lg font-medium"
+                onClick={() => setMobileProductsOpen(!mobileProductsOpen)}
+              >
+                Products
+                <ChevronDown className={`h-4 w-4 transition-transform ${mobileProductsOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {mobileProductsOpen && (
+                <div className="pl-6 pb-2">
+                  <Link to="/consumer" className="block py-2 text-base text-gray-600" onClick={toggleMenu}>
+                    For Consumers
+                  </Link>
+                  <Link to="/merchant" className="block py-2 text-base text-gray-600" onClick={toggleMenu}>
+                    For Merchants
+                  </Link>
+                </div>
+              )}
+            </div>
             
-            <Link to="/about" className="px-3 py-2 text-lg font-medium" onClick={toggleMenu}>
+            {/* Mobile Invest Dropdown */}
+            <div className="border-b border-gray-100">
+              <button 
+                className="flex items-center justify-between w-full px-3 py-3 text-lg font-medium"
+                onClick={() => setMobileInvestOpen(!mobileInvestOpen)}
+              >
+                Invest
+                <ChevronDown className={`h-4 w-4 transition-transform ${mobileInvestOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {mobileInvestOpen && (
+                <div className="pl-6 pb-2">
+                  <Link to="/invest" className="block py-2 text-base text-gray-600" onClick={toggleMenu}>
+                    Investment Pools
+                  </Link>
+                  <Link to="/invest/dashboard" className="block py-2 text-base text-gray-600" onClick={toggleMenu}>
+                    Investor Dashboard
+                  </Link>
+                  <Link to="/treasury" className="block py-2 text-base text-gray-600" onClick={toggleMenu}>
+                    Treasury Management
+                  </Link>
+                </div>
+              )}
+            </div>
+            
+            <Link to="/about" className="px-3 py-3 text-lg font-medium border-b border-gray-100" onClick={toggleMenu}>
               About Us
             </Link>
-            <Link to="/faqs" className="px-3 py-2 text-lg font-medium" onClick={toggleMenu}>
+            <Link to="/faqs" className="px-3 py-3 text-lg font-medium border-b border-gray-100" onClick={toggleMenu}>
               FAQs
             </Link>
             
-            <div className="flex flex-col space-y-3 mt-4 pt-4 border-t">
+            <div className="flex flex-col space-y-3 mt-6 pt-4">
               {isAuthenticated ? (
                 <>
                   <Link to="/profile" onClick={toggleMenu}>

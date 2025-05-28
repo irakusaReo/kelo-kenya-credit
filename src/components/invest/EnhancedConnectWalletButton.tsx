@@ -10,12 +10,12 @@ interface EnhancedConnectWalletButtonProps extends ButtonProps {
 }
 
 const SUPPORTED_WALLETS: { value: SupportedWallet; label: string; logo: string; defaultChain: SupportedChain }[] = [
-  { value: 'metamask', label: 'MetaMask', logo: '🦊', defaultChain: 'base' },
-  { value: 'phantom', label: 'Phantom', logo: '👻', defaultChain: 'solana' },
-  { value: 'coinbase', label: 'Coinbase Wallet', logo: '🔵', defaultChain: 'base' },
-  { value: 'argent', label: 'Argent', logo: '🛡️', defaultChain: 'starknet' },
-  { value: 'petra', label: 'Petra Wallet', logo: '🪨', defaultChain: 'aptos' },
-  { value: 'brave', label: 'Brave Wallet', logo: '🦁', defaultChain: 'base' },
+  { value: 'metamask', label: 'MetaMask', logo: '/assets/metamask-logo.svg', defaultChain: 'base' },
+  { value: 'phantom', label: 'Phantom', logo: '/assets/phantom-logo.svg', defaultChain: 'solana' },
+  { value: 'coinbase', label: 'Coinbase Wallet', logo: '/assets/coinbase-logo.svg', defaultChain: 'base' },
+  { value: 'argent', label: 'Argent', logo: '/assets/argent-logo.svg', defaultChain: 'starknet' },
+  { value: 'petra', label: 'Petra Wallet', logo: '/assets/petra-logo.svg', defaultChain: 'aptos' },
+  { value: 'brave', label: 'Brave Wallet', logo: '/assets/brave-logo.svg', defaultChain: 'base' },
 ];
 
 const EnhancedConnectWalletButton = ({ 
@@ -86,7 +86,24 @@ const EnhancedConnectWalletButton = ({
               variant="outline"
               className="w-full justify-start h-12"
             >
-              <span className="text-2xl mr-3">{wallet.logo}</span>
+              <img 
+                src={wallet.logo} 
+                alt={wallet.label} 
+                className="w-6 h-6 mr-3" 
+                onError={(e) => {
+                  // Fallback to emoji if image fails to load
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  const span = document.createElement('span');
+                  span.className = 'text-2xl mr-3';
+                  span.textContent = wallet.value === 'metamask' ? '🦊' : 
+                                   wallet.value === 'phantom' ? '👻' :
+                                   wallet.value === 'coinbase' ? '🔵' :
+                                   wallet.value === 'argent' ? '🛡️' :
+                                   wallet.value === 'petra' ? '🪨' : '🦁';
+                  target.parentNode?.insertBefore(span, target);
+                }}
+              />
               <span className="font-medium">{wallet.label}</span>
             </Button>
           ))}

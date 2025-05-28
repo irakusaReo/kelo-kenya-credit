@@ -26,32 +26,37 @@ const InvestorDashboard = () => {
       <Navbar />
       <main className="flex-grow section-padding bg-kelo-background">
         <div className="kelo-container max-w-7xl mx-auto">
-          <div className="flex justify-between items-center mb-8">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-8">
             <h1 className="text-3xl font-bold">Investor Dashboard</h1>
-            <div className="flex gap-4">
-              {isWalletConnected ? (
-                <Button variant="outline" className="border-kelo-blue text-kelo-blue">
-                  0x1234...5678
-                </Button>
-              ) : (
-                <ConnectWalletButton onConnect={handleWalletConnect} />
-              )}
-              <Link to="/invest">
-                <Button className="bg-kelo-blue hover:bg-kelo-blue/90">
+            {isWalletConnected && (
+              <Link to="/invest" className="w-full sm:w-auto">
+                <Button className="w-full sm:w-auto bg-kelo-blue hover:bg-kelo-blue/90">
                   View Pools
                 </Button>
               </Link>
-            </div>
+            )}
           </div>
           
           {!isWalletConnected ? (
             <Card className="mb-8">
-              <CardContent className="p-12 flex flex-col items-center">
-                <h2 className="text-2xl font-bold mb-4">Connect Wallet to View Your Portfolio</h2>
-                <p className="text-gray-600 mb-6 text-center max-w-lg">
+              <CardContent className="p-8 sm:p-12 flex flex-col items-center text-center">
+                <h2 className="text-xl sm:text-2xl font-bold mb-4">Connect Wallet to View Your Portfolio</h2>
+                <p className="text-gray-600 mb-6 max-w-lg">
                   Connect your crypto wallet to view your investment positions, track performance, and manage your portfolio.
                 </p>
-                <ConnectWalletButton variant="default" size="lg" onConnect={handleWalletConnect} />
+                <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+                  <EnhancedConnectWalletButton 
+                    variant="default" 
+                    size="lg" 
+                    onConnect={handleWalletConnect}
+                    className="w-full sm:w-auto"
+                  />
+                  <Link to="/invest" className="w-full sm:w-auto">
+                    <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                      View Pools
+                    </Button>
+                  </Link>
+                </div>
               </CardContent>
             </Card>
           ) : (
