@@ -1,12 +1,22 @@
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
+export type SupportedChain = 'solana' | 'base' | 'lisk' | 'avalanche' | 'arbitrum' | 'celo' | 'starknet' | 'aptos' | 'sui';
+export type SupportedWallet = 'argent' | 'phantom' | 'coinbase' | 'metamask' | 'petra' | 'slush' | 'brave';
+
 type UserType = {
   id: string;
   name: string;
   email: string;
   walletAddress?: string;
+  chain?: SupportedChain;
+  wallet?: SupportedWallet;
   isVendor?: boolean;
+  profileCompleted?: boolean;
+  tutorialCompleted?: boolean;
+  avatar?: string;
+  phone?: string;
+  businessName?: string;
 } | null;
 
 interface AuthContextType {
@@ -14,8 +24,10 @@ interface AuthContextType {
   isLoading: boolean;
   isAuthenticated: boolean;
   login: (email: string, password: string) => Promise<void>;
+  register: (userData: any) => Promise<void>;
   loginWithGoogle: () => Promise<void>;
-  connectWallet: (address: string) => Promise<void>;
+  connectWallet: (address: string, chain: SupportedChain, wallet: SupportedWallet) => Promise<void>;
+  updateProfile: (updates: Partial<UserType>) => void;
   logout: () => void;
 }
 
@@ -50,13 +62,39 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const mockUser = {
         id: 'user_' + Date.now(),
         name: email.split('@')[0],
-        email
+        email,
+        profileCompleted: false,
+        tutorialCompleted: false
       };
       
       setUser(mockUser);
       localStorage.setItem('kelo_user', JSON.stringify(mockUser));
     } catch (error) {
       console.error('Login failed:', error);
+      throw error;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const register = async (userData: any) => {
+    setIsLoading(true);
+    try {
+      const mockUser = {
+        id: 'user_' + Date.now(),
+        name: `${userData.firstName} ${userData.lastName}`,
+        email: userData.email,
+        phone: userData.phone,
+        isVendor: userData.isVendor || false,
+        businessName: userData.businessName,
+        profileCompleted: false,
+        tutorialCompleted: false
+      };
+      
+      setUser(mockUser);
+      localStorage.setItem('kelo_user', JSON.stringify(mockUser));
+    } catch (error) {
+      console.error('Registration failed:', error);
       throw error;
     } finally {
       setIsLoading(false);
@@ -70,7 +108,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const mockUser = {
         id: 'google_' + Date.now(),
         name: 'Google User',
-        email: 'googleuser@example.com'
+        email: 'googleuser@example.com',
+        profileCompleted: false,
+        tutorialCompleted: false
       };
       
       setUser(mockUser);
@@ -83,7 +123,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const connectWallet = async (address: string) => {
+  const connectWallet = async (address: string, chain: SupportedChain, wallet: SupportedWallet) => {
     setIsLoading(true);
     try {
       // Mock wallet connection - would be replaced with actual wallet integration
@@ -91,7 +131,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         id: 'wallet_' + Date.now(),
         name: 'Wallet User',
         email: `${address.substring(0, 6)}...${address.substring(address.length - 4)}@wallet.kelo`,
-        walletAddress: address
+        walletAddress: address,
+        chain,
+        wallet,
+        profileCompleted: false,
+        tutorialCompleted: false
       };
       
       setUser(mockUser);
@@ -101,6 +145,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       throw error;
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const updateProfile = (updates: Partial<UserType>) => {
+    if (user) {
+      const updatedUser = { ...user, ...updates };
+      setUser(updatedUser);
+      localStorage.setItem('kelo_user', JSON.stringify(updatedUser));
     }
   };
 
@@ -116,8 +168,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isLoading,
         isAuthenticated: !!user,
         login,
+        register,
         loginWithGoogle,
         connectWallet,
+        updateProfile,
         logout
       }}
     >

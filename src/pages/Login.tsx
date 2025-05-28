@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -8,16 +8,79 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import ConnectWalletButton from '@/components/invest/ConnectWalletButton';
+import EnhancedConnectWalletButton from '@/components/invest/EnhancedConnectWalletButton';
 import { Mail } from 'lucide-react';
-import useAuthProvider from '@/hooks/useAuthProvider';
+import { useAuth } from '@/contexts/AuthContext';
+import { toast } from '@/hooks/use-toast';
 
 const Login = () => {
-  const auth = useAuthProvider();
-  
-  const handleGoogleSignIn = () => {
-    console.log('Google sign-in clicked');
-    auth.loginWithGoogle();
+  const navigate = useNavigate();
+  const { login, loginWithGoogle, connectWallet } = useAuth();
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    
+    try {
+      await login(formData.email, formData.password);
+      toast({
+        title: "Login successful",
+        description: "Welcome back to Kelo!"
+      });
+      navigate('/dashboard');
+    } catch (error) {
+      toast({
+        title: "Login failed",
+        description: "Please check your credentials and try again.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await loginWithGoogle();
+      toast({
+        title: "Login successful",
+        description: "Welcome to Kelo!"
+      });
+      navigate('/dashboard');
+    } catch (error) {
+      toast({
+        title: "Google login failed",
+        description: "Please try again later.",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const handleWalletConnect = async (address: string, chain: any, wallet: any) => {
+    try {
+      await connectWallet(address, chain, wallet);
+      toast({
+        title: "Wallet connected",
+        description: "Your wallet is now connected to Kelo!"
+      });
+      navigate('/invest/dashboard');
+    } catch (error) {
+      toast({
+        title: "Wallet connection failed",
+        description: "Please try again later.",
+        variant: "destructive"
+      });
+    }
   };
 
   return (
@@ -34,7 +97,7 @@ const Login = () => {
           
           <div className="bg-white p-8 shadow-md rounded-xl border border-gray-100">
             {/* Email/Password Form */}
-            <form className="space-y-6" action="#" method="POST">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="space-y-2">
                 <Label htmlFor="email">Email address</Label>
                 <Input
@@ -43,6 +106,8 @@ const Login = () => {
                   type="email"
                   autoComplete="email"
                   placeholder="you@example.com"
+                  value={formData.email}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -50,7 +115,7 @@ const Login = () => {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <Label htmlFor="password">Password</Label>
-                  <Link to="/forgot-password" className="text-sm font-medium text-kelo-blue hover:text-kelo-blue/90">
+                  <Link to="/forgot-password" className="text-sm font-medium text-kelo-primary hover:text-kelo-primary/90">
                     Forgot password?
                   </Link>
                 </div>
@@ -60,6 +125,8 @@ const Login = () => {
                   type="password"
                   autoComplete="current-password"
                   placeholder="••••••••"
+                  value={formData.password}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -74,8 +141,12 @@ const Login = () => {
                 </label>
               </div>
 
-              <Button type="submit" className="w-full bg-kelo-blue hover:bg-kelo-blue/90">
-                Sign in with Email
+              <Button 
+                type="submit" 
+                className="w-full bg-kelo-primary hover:bg-kelo-primary/90"
+                disabled={isLoading}
+              >
+                {isLoading ? 'Signing in...' : 'Sign in with Email'}
               </Button>
             </form>
             
@@ -97,16 +168,17 @@ const Login = () => {
                 Sign in with Google
               </Button>
               
-              <ConnectWalletButton 
+              <EnhancedConnectWalletButton 
                 className="w-full" 
                 variant="outline"
+                onConnect={handleWalletConnect}
               />
             </div>
           </div>
           
           <p className="mt-4 text-center text-sm text-gray-600">
             Don't have an account?{' '}
-            <Link to="/register" className="font-medium text-kelo-blue hover:text-kelo-blue/90">
+            <Link to="/register" className="font-medium text-kelo-primary hover:text-kelo-primary/90">
               Sign up
             </Link>
           </p>

@@ -37,11 +37,11 @@ const Navbar = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-6">
-          <Link to="/" className="text-sm font-medium text-kelo-text hover:text-kelo-blue transition-colors">
+          <Link to="/" className="text-sm font-medium text-kelo-text hover:text-kelo-primary transition-colors">
             Home
           </Link>
           <div className="relative group">
-            <button className="flex items-center text-sm font-medium text-kelo-text hover:text-kelo-blue transition-colors">
+            <button className="flex items-center text-sm font-medium text-kelo-text hover:text-kelo-primary transition-colors">
               Products <ChevronDown className="ml-1 h-4 w-4" />
             </button>
             <div className="absolute left-0 top-full w-48 p-2 hidden group-hover:block bg-white rounded-md shadow-lg border border-gray-100">
@@ -54,7 +54,7 @@ const Navbar = () => {
             </div>
           </div>
           <div className="relative group">
-            <button className="flex items-center text-sm font-medium text-kelo-text hover:text-kelo-blue transition-colors">
+            <button className="flex items-center text-sm font-medium text-kelo-text hover:text-kelo-primary transition-colors">
               Invest <ChevronDown className="ml-1 h-4 w-4" />
             </button>
             <div className="absolute left-0 top-full w-48 p-2 hidden group-hover:block bg-white rounded-md shadow-lg border border-gray-100 z-20">
@@ -69,10 +69,10 @@ const Navbar = () => {
               </Link>
             </div>
           </div>
-          <Link to="/about" className="text-sm font-medium text-kelo-text hover:text-kelo-blue transition-colors">
+          <Link to="/about" className="text-sm font-medium text-kelo-text hover:text-kelo-primary transition-colors">
             About Us
           </Link>
-          <Link to="/faqs" className="text-sm font-medium text-kelo-text hover:text-kelo-blue transition-colors">
+          <Link to="/faqs" className="text-sm font-medium text-kelo-text hover:text-kelo-primary transition-colors">
             FAQs
           </Link>
         </nav>
@@ -90,13 +90,24 @@ const Navbar = () => {
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link to="/dashboard" className="cursor-pointer">Dashboard</Link>
+                  <Link to="/profile" className="cursor-pointer">Profile</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to={user?.isVendor ? "/vendor/dashboard" : "/dashboard"} className="cursor-pointer">
+                    Dashboard
+                  </Link>
                 </DropdownMenuItem>
                 {user?.walletAddress && (
                   <DropdownMenuItem asChild>
                     <Link to="/invest/dashboard" className="cursor-pointer">Investments</Link>
                   </DropdownMenuItem>
                 )}
+                {!user?.tutorialCompleted && (
+                  <DropdownMenuItem asChild>
+                    <Link to="/tutorial" className="cursor-pointer">Complete Tutorial</Link>
+                  </DropdownMenuItem>
+                )}
+                <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={logout} className="cursor-pointer text-red-600">
                   <LogOut className="mr-2 h-4 w-4" />
                   Logout
@@ -109,7 +120,7 @@ const Navbar = () => {
                 <Button variant="outline" size="sm">Log In</Button>
               </Link>
               <Link to="/register">
-                <Button size="sm" className="bg-kelo-blue hover:bg-kelo-blue/90">Sign Up</Button>
+                <Button size="sm" className="bg-kelo-primary hover:bg-kelo-primary/90">Sign Up</Button>
               </Link>
             </>
           )}
@@ -161,12 +172,24 @@ const Navbar = () => {
             <div className="flex flex-col space-y-3 mt-4 pt-4 border-t">
               {isAuthenticated ? (
                 <>
-                  <Link to="/dashboard" onClick={toggleMenu}>
+                  <Link to="/profile" onClick={toggleMenu}>
                     <Button variant="outline" className="w-full justify-start">
                       <User className="mr-2 h-4 w-4" />
-                      My Account
+                      Profile
                     </Button>
                   </Link>
+                  <Link to={user?.isVendor ? "/vendor/dashboard" : "/dashboard"} onClick={toggleMenu}>
+                    <Button variant="outline" className="w-full justify-start">
+                      Dashboard
+                    </Button>
+                  </Link>
+                  {!user?.tutorialCompleted && (
+                    <Link to="/tutorial" onClick={toggleMenu}>
+                      <Button variant="outline" className="w-full justify-start">
+                        Complete Tutorial
+                      </Button>
+                    </Link>
+                  )}
                   <Button 
                     onClick={() => {
                       logout();
@@ -185,7 +208,7 @@ const Navbar = () => {
                     <Button variant="outline" className="w-full">Log In</Button>
                   </Link>
                   <Link to="/register" onClick={toggleMenu}>
-                    <Button className="w-full bg-kelo-blue hover:bg-kelo-blue/90">Sign Up</Button>
+                    <Button className="w-full bg-kelo-primary hover:bg-kelo-primary/90">Sign Up</Button>
                   </Link>
                 </>
               )}

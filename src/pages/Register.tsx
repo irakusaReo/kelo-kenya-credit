@@ -1,6 +1,6 @@
 
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -8,16 +8,82 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import ConnectWalletButton from '@/components/invest/ConnectWalletButton';
+import EnhancedConnectWalletButton from '@/components/invest/EnhancedConnectWalletButton';
 import { Mail } from 'lucide-react';
-import useAuthProvider from '@/hooks/useAuthProvider';
+import { useAuth } from '@/contexts/AuthContext';
+import { toast } from '@/hooks/use-toast';
 
 const Register = () => {
-  const auth = useAuthProvider();
+  const navigate = useNavigate();
+  const { register, loginWithGoogle, connectWallet } = useAuth();
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    password: '',
+  });
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleGoogleSignUp = () => {
-    console.log('Google sign-up clicked');
-    auth.loginWithGoogle();
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    
+    try {
+      await register(formData);
+      toast({
+        title: "Account created successfully",
+        description: "Welcome to Kelo!"
+      });
+      navigate('/tutorial');
+    } catch (error) {
+      toast({
+        title: "Registration failed",
+        description: "Please try again later.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleGoogleSignUp = async () => {
+    try {
+      await loginWithGoogle();
+      toast({
+        title: "Account created successfully",
+        description: "Welcome to Kelo!"
+      });
+      navigate('/tutorial');
+    } catch (error) {
+      toast({
+        title: "Google signup failed",
+        description: "Please try again later.",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const handleWalletConnect = async (address: string, chain: any, wallet: any) => {
+    try {
+      await connectWallet(address, chain, wallet);
+      toast({
+        title: "Wallet connected",
+        description: "Welcome to Kelo!"
+      });
+      navigate('/tutorial');
+    } catch (error) {
+      toast({
+        title: "Wallet connection failed",
+        description: "Please try again later.",
+        variant: "destructive"
+      });
+    }
   };
 
   return (
@@ -44,9 +110,10 @@ const Register = () => {
                 Sign up with Google
               </Button>
               
-              <ConnectWalletButton 
+              <EnhancedConnectWalletButton 
                 className="w-full" 
                 variant="outline"
+                onConnect={handleWalletConnect}
               />
             </div>
             
@@ -57,16 +124,18 @@ const Register = () => {
               <Separator className="flex-grow" />
             </div>
           
-            <form className="space-y-6" action="#" method="POST">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="first-name">First name</Label>
                   <Input
                     id="first-name"
-                    name="first-name"
+                    name="firstName"
                     type="text"
                     autoComplete="given-name"
                     placeholder="John"
+                    value={formData.firstName}
+                    onChange={handleChange}
                     required
                   />
                 </div>
@@ -74,10 +143,12 @@ const Register = () => {
                   <Label htmlFor="last-name">Last name</Label>
                   <Input
                     id="last-name"
-                    name="last-name"
+                    name="lastName"
                     type="text"
                     autoComplete="family-name"
                     placeholder="Doe"
+                    value={formData.lastName}
+                    onChange={handleChange}
                     required
                   />
                 </div>
@@ -91,6 +162,8 @@ const Register = () => {
                   type="email"
                   autoComplete="email"
                   placeholder="you@example.com"
+                  value={formData.email}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -103,6 +176,8 @@ const Register = () => {
                   type="tel"
                   autoComplete="tel"
                   placeholder="+254 7XX XXX XXX"
+                  value={formData.phone}
+                  onChange={handleChange}
                   required
                 />
                 <p className="text-xs text-gray-500">
@@ -118,6 +193,8 @@ const Register = () => {
                   type="password"
                   autoComplete="new-password"
                   placeholder="••••••••"
+                  value={formData.password}
+                  onChange={handleChange}
                   required
                 />
               </div>
@@ -129,25 +206,29 @@ const Register = () => {
                   className="text-sm text-gray-600"
                 >
                   I agree to the{' '}
-                  <Link to="/terms" className="font-medium text-kelo-blue hover:text-kelo-blue/90">
+                  <Link to="/terms" className="font-medium text-kelo-primary hover:text-kelo-primary/90">
                     Terms of Service
                   </Link>{' '}
                   and{' '}
-                  <Link to="/privacy" className="font-medium text-kelo-blue hover:text-kelo-blue/90">
+                  <Link to="/privacy" className="font-medium text-kelo-primary hover:text-kelo-primary/90">
                     Privacy Policy
                   </Link>
                 </label>
               </div>
 
-              <Button type="submit" className="w-full bg-kelo-blue hover:bg-kelo-blue/90">
-                Create account
+              <Button 
+                type="submit" 
+                className="w-full bg-kelo-primary hover:bg-kelo-primary/90"
+                disabled={isLoading}
+              >
+                {isLoading ? 'Creating account...' : 'Create account'}
               </Button>
             </form>
           </div>
           
           <p className="mt-4 text-center text-sm text-gray-600">
             Already have an account?{' '}
-            <Link to="/login" className="font-medium text-kelo-blue hover:text-kelo-blue/90">
+            <Link to="/login" className="font-medium text-kelo-primary hover:text-kelo-primary/90">
               Sign in
             </Link>
           </p>
