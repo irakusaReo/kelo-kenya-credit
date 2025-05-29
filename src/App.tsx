@@ -24,6 +24,16 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Success from "./pages/Success";
 
+// Mobile pages
+import MobileDashboard from "./pages/MobileDashboard";
+import MobileMarket from "./pages/MobileMarket";
+import WalletAddresses from "./pages/WalletAddresses";
+import KeloCard from "./pages/KeloCard";
+import QRScanner from "./pages/QRScanner";
+import Purchases from "./pages/Purchases";
+import StoreDetail from "./pages/StoreDetail";
+import More from "./pages/More";
+
 // Vendor Portal Pages
 import VendorSignup from "./pages/vendor/Signup";
 import VendorLogin from "./pages/vendor/Login";
@@ -57,7 +67,7 @@ const App = () => (
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/tutorial" element={<Tutorial />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard" element={<MobileDashboard />} />
             <Route path="/about" element={<About />} />
             <Route path="/faqs" element={<FAQs />} />
             
@@ -65,7 +75,17 @@ const App = () => (
             <Route path="/consumer" element={<Marketplace />} />
             <Route path="/merchant" element={<VendorSignup />} />
             
-            {/* New routes */}
+            {/* Mobile-specific routes */}
+            <Route path="/market" element={<MobileMarket />} />
+            <Route path="/market/store/:storeId" element={<StoreDetail />} />
+            <Route path="/market/product/:id" element={<ProductDetail />} />
+            <Route path="/wallet-addresses" element={<WalletAddresses />} />
+            <Route path="/card" element={<KeloCard />} />
+            <Route path="/scan" element={<QRScanner />} />
+            <Route path="/purchases" element={<Purchases />} />
+            <Route path="/more" element={<More />} />
+            
+            {/* Original routes */}
             <Route path="/marketplace" element={<Marketplace />} />
             <Route path="/vertical/:slug" element={<VerticalDetail />} />
             <Route path="/partner/:id" element={<PartnerDetail />} />
