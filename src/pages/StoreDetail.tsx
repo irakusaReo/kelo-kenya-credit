@@ -19,10 +19,23 @@ const StoreDetail = () => {
     return <div>Store not found</div>;
   }
 
-  const productCategories = ['All', 'Headphones', 'Shoes', 'Game Consoles', 'Electronics'];
+  // Extract unique product types from the product names/descriptions for filtering
+  const productCategories = ['All', 'Courses', 'Electronics', 'Appliances', 'Events', 'Travel'];
   const filteredProducts = selectedFilter === 'All' 
     ? storeProducts 
-    : storeProducts.filter(p => p.category === selectedFilter);
+    : storeProducts.filter(p => {
+        // Simple filtering based on product name/description content
+        const productName = p.name.toLowerCase();
+        const filterLower = selectedFilter.toLowerCase();
+        
+        if (filterLower === 'courses') return productName.includes('course') || productName.includes('bootcamp') || productName.includes('certificate');
+        if (filterLower === 'electronics') return productName.includes('iphone') || productName.includes('tv') || productName.includes('phone');
+        if (filterLower === 'appliances') return productName.includes('refrigerator') || productName.includes('fridge');
+        if (filterLower === 'events') return productName.includes('festival') || productName.includes('experience');
+        if (filterLower === 'travel') return productName.includes('flight') || productName.includes('getaway');
+        
+        return true;
+      });
 
   return (
     <div className="min-h-screen bg-gray-50">

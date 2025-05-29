@@ -19,7 +19,10 @@ const MobileMarket = () => {
 
   const filteredPartners = partners.filter(partner => {
     const matchesSearch = partner.name.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === 'All categories' || partner.category === selectedCategory;
+    // Find the vertical name using verticalId
+    const partnerVertical = verticals.find(v => v.id === partner.verticalId);
+    const partnerCategoryName = partnerVertical?.name || '';
+    const matchesCategory = selectedCategory === 'All categories' || partnerCategoryName === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
