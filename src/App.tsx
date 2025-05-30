@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -31,9 +32,6 @@ import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Success from "./pages/Success";
-import ProductCatalog from "./pages/consumer/ProductCatalog";
-import CheckoutFlow from "./pages/consumer/CheckoutFlow";
-import LoanSummary from "./pages/consumer/LoanSummary";
 
 // Mobile pages
 import MobileDashboard from "./pages/MobileDashboard";
@@ -53,17 +51,6 @@ import VendorLogin from "./pages/vendor/Login";
 import VendorDashboard from "./pages/vendor/Dashboard";
 import VendorProducts from "./pages/vendor/Products";
 import VendorAnalytics from "./pages/vendor/Analytics";
-
-// Merchant Portal Pages
-import MerchantDashboard from "./pages/merchant/MerchantDashboard";
-import ProductManagement from "./pages/merchant/ProductManagement";
-import Settlements from "./pages/merchant/Settlements";
-
-// Admin Portal Pages
-import SystemOverview from "./pages/admin/SystemOverview";
-import UserManagement from "./pages/admin/UserManagement";
-import ContractControls from "./pages/admin/ContractControls";
-import FraudRisk from "./pages/admin/FraudRisk";
 
 // User Credit Scoring Pages
 import UserCreditUpload from "./pages/user/credit/Upload";
@@ -104,9 +91,6 @@ const App = () => (
             {/* Consumer Routes */}
             <Route path="/dashboard" element={<MobileDashboard />} />
             <Route path="/consumer" element={<Marketplace />} />
-            <Route path="/consumer/catalog" element={<ProductCatalog />} />
-            <Route path="/consumer/checkout" element={<CheckoutFlow />} />
-            <Route path="/consumer/loan-summary" element={<LoanSummary />} />
             
             {/* Mobile-specific routes */}
             <Route path="/market" element={<MobileMarket />} />
@@ -131,20 +115,11 @@ const App = () => (
             
             {/* Merchant Routes */}
             <Route path="/merchant" element={<VendorSignup />} />
-            <Route path="/merchant/dashboard" element={<MerchantDashboard />} />
-            <Route path="/merchant/products" element={<ProductManagement />} />
-            <Route path="/merchant/settlements" element={<Settlements />} />
             <Route path="/vendor/signup" element={<VendorSignup />} />
             <Route path="/vendor/login" element={<VendorLogin />} />
             <Route path="/vendor/dashboard" element={<VendorDashboard />} />
             <Route path="/vendor/products" element={<VendorProducts />} />
             <Route path="/vendor/analytics" element={<VendorAnalytics />} />
-            
-            {/* Admin Routes */}
-            <Route path="/admin/overview" element={<SystemOverview />} />
-            <Route path="/admin/users" element={<UserManagement />} />
-            <Route path="/admin/contracts" element={<ContractControls />} />
-            <Route path="/admin/fraud-risk" element={<FraudRisk />} />
             
             {/* User Credit Routes */}
             <Route path="/user/credit/upload" element={<UserCreditUpload />} />
