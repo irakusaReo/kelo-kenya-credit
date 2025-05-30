@@ -3,37 +3,32 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Eye, EyeOff, Copy, Plus, CreditCard } from 'lucide-react';
-import { useAuth } from '@/contexts/AuthContext';
+import { ArrowLeft, Eye, EyeOff, Copy, CreditCard, Calendar, Shield, Settings } from 'lucide-react';
 
 const KeloCard = () => {
-  const { user } = useAuth();
   const [showCardDetails, setShowCardDetails] = useState(false);
-  
-  // Mock card data - in real app this would come from user data
-  const hasCard = true; // Change to false to show the create card flow
-  
-  const cardData = {
+  const [hasCard, setHasCard] = useState(true); // Set to false to show "create card" state
+
+  const cardDetails = {
     number: '4532 1234 5678 9012',
-    expiryDate: '12/26',
+    holder: 'ANDRE AILA OWANO',
+    expiry: '12/27',
     cvv: '123',
-    holderName: user?.name || 'Andre Aila Owano',
-    balance: 'KES 125,450.00',
-    creditLimit: 'KES 250,000.00',
-    availableCredit: 'KES 124,550.00'
+    creditLimit: 50000,
+    availableCredit: 35000,
+    nextPayment: 'Feb 15, 2025',
+    nextAmount: 5200
   };
 
-  const formatCardNumber = (number: string) => {
-    if (!showCardDetails) {
-      return '**** **** **** ' + number.slice(-4);
-    }
-    return number;
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+    // Add toast notification here
   };
 
   if (!hasCard) {
     return (
       <div className="min-h-screen bg-gray-50">
-        {/* Header */}
+        {/* Header with Back Button */}
         <div className="bg-white border-b px-4 py-4">
           <div className="flex items-center space-x-4">
             <Link to="/dashboard">
@@ -45,20 +40,23 @@ const KeloCard = () => {
           </div>
         </div>
 
-        <div className="p-4 flex items-center justify-center min-h-[60vh]">
-          <Card className="w-full max-w-sm">
+        {/* Create Card Prompt */}
+        <div className="p-4 flex items-center justify-center min-h-[70vh]">
+          <Card className="max-w-md w-full">
             <CardContent className="p-8 text-center">
-              <div className="w-20 h-20 bg-kelo-blue/10 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-20 h-20 bg-kelo-blue/10 rounded-full mx-auto mb-6 flex items-center justify-center">
                 <CreditCard className="w-10 h-10 text-kelo-blue" />
               </div>
               <h2 className="text-2xl font-bold mb-4">Get Your Kelo Card</h2>
               <p className="text-gray-600 mb-6">
-                Apply for a Kelo card to make purchases at partner stores and build your credit history.
+                Apply for your Kelo card to unlock flexible payment options and exclusive benefits.
               </p>
-              <Button className="w-full bg-kelo-blue hover:bg-kelo-blue/90">
-                <Plus className="mr-2 h-4 w-4" />
-                Apply for Card
+              <Button className="w-full bg-kelo-blue hover:bg-kelo-blue/90 mb-4">
+                Apply for Kelo Card
               </Button>
+              <p className="text-sm text-gray-500">
+                Approval typically takes 2-3 business days
+              </p>
             </CardContent>
           </Card>
         </div>
@@ -68,140 +66,162 @@ const KeloCard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
+      {/* Header with Back Button */}
       <div className="bg-white border-b px-4 py-4">
-        <div className="flex items-center space-x-4">
-          <Link to="/dashboard">
-            <Button variant="ghost" size="icon">
-              <ArrowLeft size={24} />
-            </Button>
-          </Link>
-          <h1 className="text-xl font-semibold">My Kelo Card</h1>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <Link to="/dashboard">
+              <Button variant="ghost" size="icon">
+                <ArrowLeft size={24} />
+              </Button>
+            </Link>
+            <h1 className="text-xl font-semibold">My Kelo Card</h1>
+          </div>
+          <Button variant="ghost" size="icon">
+            <Settings size={24} />
+          </Button>
         </div>
       </div>
 
       <div className="p-4 space-y-6">
         {/* Card Display */}
         <div className="relative">
-          <Card className="bg-gradient-to-r from-kelo-blue to-purple-600 border-0 text-white overflow-hidden">
+          <Card className="bg-gradient-to-r from-kelo-blue to-purple-600 text-white border-0 overflow-hidden">
             <CardContent className="p-6">
-              <div className="flex justify-between items-start mb-8">
-                <div className="flex items-center space-x-2">
-                  <div className="w-8 h-8 bg-white/20 rounded-md flex items-center justify-center">
-                    <CreditCard className="w-5 h-5" />
-                  </div>
-                  <span className="font-semibold">Kelo Card</span>
+              <div className="flex justify-between items-start mb-6">
+                <div>
+                  <h3 className="text-lg font-semibold">Kelo Card</h3>
+                  <p className="text-white/80 text-sm">Buy Now, Pay Later</p>
                 </div>
                 <Button
                   variant="ghost"
                   size="icon"
+                  className="text-white"
                   onClick={() => setShowCardDetails(!showCardDetails)}
-                  className="text-white h-8 w-8"
                 >
-                  {showCardDetails ? <EyeOff size={16} /> : <Eye size={16} />}
+                  {showCardDetails ? <EyeOff size={20} /> : <Eye size={20} />}
                 </Button>
               </div>
-              
+
               <div className="mb-6">
-                <p className="text-2xl font-mono tracking-wider mb-4">
-                  {formatCardNumber(cardData.number)}
+                <p className="text-white/80 text-sm mb-1">Card Number</p>
+                <p className="text-xl font-mono">
+                  {showCardDetails ? cardDetails.number : '•••• •••• •••• ••••'}
                 </p>
-                <div className="flex justify-between items-end">
-                  <div>
-                    <p className="text-white/80 text-sm">Card Holder</p>
-                    <p className="font-semibold">{cardData.holderName}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-white/80 text-sm">Expires</p>
-                    <p className="font-semibold">
-                      {showCardDetails ? cardData.expiryDate : '**/**'}
-                    </p>
-                  </div>
+              </div>
+
+              <div className="flex justify-between items-end">
+                <div>
+                  <p className="text-white/80 text-sm mb-1">Card Holder</p>
+                  <p className="font-semibold">{cardDetails.holder}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-white/80 text-sm mb-1">Expires</p>
+                  <p className="font-semibold">
+                    {showCardDetails ? cardDetails.expiry : '••/••'}
+                  </p>
                 </div>
               </div>
-              
+
               {/* Decorative elements */}
               <div className="absolute -right-4 -bottom-4 w-24 h-24 bg-white/10 rounded-full"></div>
               <div className="absolute -right-8 -bottom-8 w-32 h-32 bg-white/5 rounded-full"></div>
             </CardContent>
           </Card>
 
-          {/* Card Actions */}
-          <div className="flex space-x-3 mt-4">
-            <Button variant="outline" className="flex-1">
+          {/* Copy Card Details Button */}
+          {showCardDetails && (
+            <Button
+              variant="outline"
+              className="w-full mt-3"
+              onClick={() => copyToClipboard(cardDetails.number)}
+            >
               <Copy className="mr-2 h-4 w-4" />
-              Copy Details
+              Copy Card Number
             </Button>
-            <Button variant="outline" className="flex-1">
-              Freeze Card
-            </Button>
-          </div>
+          )}
         </div>
 
         {/* Card Details */}
         {showCardDetails && (
           <Card>
-            <CardContent className="p-4">
-              <h3 className="font-semibold mb-4">Card Details</h3>
-              <div className="space-y-3">
-                <div className="flex justify-between">
-                  <span className="text-gray-600">CVV</span>
-                  <span className="font-mono">{cardData.cvv}</span>
+            <CardContent className="p-4 space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p className="text-sm text-gray-600">CVV</p>
+                  <p className="font-semibold">{cardDetails.cvv}</p>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Card Type</span>
-                  <span>Virtual Visa</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-600">Status</span>
-                  <span className="text-green-600 font-medium">Active</span>
+                <div>
+                  <p className="text-sm text-gray-600">Card Type</p>
+                  <p className="font-semibold">Virtual Kelo Card</p>
                 </div>
               </div>
             </CardContent>
           </Card>
         )}
 
-        {/* Balance Information */}
-        <div className="grid grid-cols-1 gap-4">
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex justify-between items-center">
-                <div>
-                  <p className="text-gray-600 text-sm">Available Credit</p>
-                  <p className="text-2xl font-bold text-green-600">{cardData.availableCredit}</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-gray-600 text-sm">Credit Limit</p>
-                  <p className="text-lg font-semibold">{cardData.creditLimit}</p>
-                </div>
+        {/* Credit Information */}
+        <Card>
+          <CardContent className="p-4">
+            <h3 className="font-semibold mb-4">Credit Information</h3>
+            <div className="space-y-3">
+              <div className="flex justify-between">
+                <span className="text-gray-600">Credit Limit</span>
+                <span className="font-semibold">KES {cardDetails.creditLimit.toLocaleString()}</span>
               </div>
-              <div className="mt-4">
-                <div className="bg-gray-200 rounded-full h-2">
-                  <div 
-                    className="bg-green-500 h-2 rounded-full" 
-                    style={{ width: '85%' }}
-                  ></div>
-                </div>
-                <p className="text-xs text-gray-500 mt-1 text-right">85% Available</p>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Available Credit</span>
+                <span className="font-semibold text-green-600">KES {cardDetails.availableCredit.toLocaleString()}</span>
               </div>
-            </CardContent>
-          </Card>
-        </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div 
+                  className="bg-kelo-blue h-2 rounded-full" 
+                  style={{ width: `${((cardDetails.creditLimit - cardDetails.availableCredit) / cardDetails.creditLimit) * 100}%` }}
+                ></div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
 
-        {/* Quick Actions */}
-        <div className="grid grid-cols-2 gap-4">
-          <Link to="/transactions">
-            <Button variant="outline" className="w-full h-16 flex flex-col">
-              <span className="font-medium">Transaction</span>
-              <span className="text-sm text-gray-600">History</span>
-            </Button>
-          </Link>
-          <Link to="/statements">
-            <Button variant="outline" className="w-full h-16 flex flex-col">
-              <span className="font-medium">Download</span>
-              <span className="text-sm text-gray-600">Statement</span>
-            </Button>
-          </Link>
+        {/* Next Payment */}
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
+                <Calendar className="w-5 h-5 text-orange-600" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-semibold">Next Payment Due</h3>
+                <p className="text-sm text-gray-600">{cardDetails.nextPayment}</p>
+              </div>
+              <div className="text-right">
+                <p className="font-bold text-lg">KES {cardDetails.nextAmount.toLocaleString()}</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Security */}
+        <Card>
+          <CardContent className="p-4">
+            <div className="flex items-center space-x-3">
+              <Shield className="w-5 h-5 text-green-600" />
+              <div>
+                <h3 className="font-semibold">Security</h3>
+                <p className="text-sm text-gray-600">Your card is protected with bank-level security</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Card Actions */}
+        <div className="grid grid-cols-2 gap-3">
+          <Button variant="outline">
+            Freeze Card
+          </Button>
+          <Button variant="outline">
+            Card Settings
+          </Button>
         </div>
       </div>
     </div>

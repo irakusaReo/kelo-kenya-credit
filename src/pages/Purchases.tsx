@@ -58,7 +58,7 @@ const Purchases = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
+      {/* Header with Back Button */}
       <div className="bg-white border-b px-4 py-4">
         <div className="flex items-center space-x-4">
           <Link to="/dashboard">

@@ -1,55 +1,36 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Copy, Plus, Wallet, Check } from 'lucide-react';
-import { useAuth } from '@/contexts/AuthContext';
-import EnhancedConnectWalletButton from '@/components/invest/EnhancedConnectWalletButton';
+import { ArrowLeft, Wallet, Copy, Plus, Trash2 } from 'lucide-react';
 
 const WalletAddresses = () => {
-  const { user } = useAuth();
-  const [copiedAddress, setCopiedAddress] = useState<string | null>(null);
-
-  // Mock wallet addresses - in real app this would come from user data
-  const walletAddresses = user?.walletAddress ? [
+  const [wallets, setWallets] = useState([
     {
       id: 1,
-      chain: user.chain || 'ethereum',
-      address: user.walletAddress,
-      wallet: user.wallet || 'metamask',
-      balance: '1.25 ETH'
+      name: 'MetaMask Wallet',
+      address: '0x742F35B...A8C9E4',
+      type: 'Ethereum',
+      connected: true
+    },
+    {
+      id: 2,
+      name: 'Trust Wallet',
+      address: '0x8A7F2C1...B5D6F8',
+      type: 'Binance Smart Chain',
+      connected: false
     }
-  ] : [];
+  ]);
 
   const copyToClipboard = (address: string) => {
     navigator.clipboard.writeText(address);
-    setCopiedAddress(address);
-    setTimeout(() => setCopiedAddress(null), 2000);
-  };
-
-  const formatAddress = (address: string) => {
-    return `${address.slice(0, 6)}...${address.slice(-4)}`;
-  };
-
-  const getChainName = (chain: string) => {
-    const chainNames: { [key: string]: string } = {
-      ethereum: 'Ethereum',
-      solana: 'Solana',
-      base: 'Base',
-      arbitrum: 'Arbitrum',
-      avalanche: 'Avalanche',
-      celo: 'Celo',
-      starknet: 'StarkNet',
-      aptos: 'Aptos',
-      sui: 'Sui'
-    };
-    return chainNames[chain] || chain;
+    // You could add a toast notification here
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header */}
+      {/* Header with Back Button */}
       <div className="bg-white border-b px-4 py-4">
         <div className="flex items-center space-x-4">
           <Link to="/dashboard">
@@ -61,92 +42,81 @@ const WalletAddresses = () => {
         </div>
       </div>
 
-      <div className="p-4 space-y-4">
-        {/* Connected Wallets */}
-        {walletAddresses.length > 0 ? (
-          <div className="space-y-3">
-            <h2 className="text-lg font-semibold">Connected Wallets</h2>
-            {walletAddresses.map((wallet) => (
+      <div className="p-4 space-y-6">
+        {/* Connect New Wallet Button */}
+        <Button className="w-full bg-kelo-blue hover:bg-kelo-blue/90">
+          <Plus className="mr-2 h-4 w-4" />
+          Connect New Wallet
+        </Button>
+
+        {/* Wallet List */}
+        <div className="space-y-4">
+          <h2 className="text-lg font-semibold">Connected Wallets</h2>
+          
+          {wallets.length > 0 ? (
+            wallets.map((wallet) => (
               <Card key={wallet.id}>
                 <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-kelo-blue/10 rounded-lg flex items-center justify-center">
-                        <Wallet className="w-5 h-5 text-kelo-blue" />
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-start space-x-3 flex-1">
+                      <div className="w-12 h-12 bg-kelo-blue/10 rounded-lg flex items-center justify-center">
+                        <Wallet className="w-6 h-6 text-kelo-blue" />
                       </div>
-                      <div>
-                        <p className="font-medium">{getChainName(wallet.chain)}</p>
-                        <p className="text-sm text-gray-600">{formatAddress(wallet.address)}</p>
-                        <p className="text-xs text-gray-500 capitalize">{wallet.wallet} Wallet</p>
+                      <div className="flex-1">
+                        <h3 className="font-semibold">{wallet.name}</h3>
+                        <p className="text-sm text-gray-600 mb-1">{wallet.type}</p>
+                        <p className="text-sm font-mono text-gray-800">{wallet.address}</p>
+                        <span className={`inline-block mt-2 px-2 py-1 rounded-full text-xs ${
+                          wallet.connected 
+                            ? 'bg-green-100 text-green-800' 
+                            : 'bg-gray-100 text-gray-600'
+                        }`}>
+                          {wallet.connected ? 'Connected' : 'Disconnected'}
+                        </span>
                       </div>
                     </div>
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() => copyToClipboard(wallet.address)}
-                      className="h-10 w-10"
-                    >
-                      {copiedAddress === wallet.address ? (
-                        <Check size={16} className="text-green-500" />
-                      ) : (
+                    <div className="flex space-x-2 ml-4">
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => copyToClipboard(wallet.address)}
+                      >
                         <Copy size={16} />
-                      )}
-                    </Button>
-                  </div>
-                  {wallet.balance && (
-                    <div className="mt-3 pt-3 border-t">
-                      <p className="text-sm text-gray-600">Balance: <span className="font-medium">{wallet.balance}</span></p>
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        className="text-red-600 border-red-200 hover:bg-red-50"
+                      >
+                        <Trash2 size={16} />
+                      </Button>
                     </div>
-                  )}
+                  </div>
                 </CardContent>
               </Card>
-            ))}
-          </div>
-        ) : (
-          <Card>
-            <CardContent className="p-8 text-center">
-              <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Wallet className="w-8 h-8 text-gray-400" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">No Wallets Connected</h3>
-              <p className="text-gray-600 mb-6">Connect your crypto wallet to start investing and managing your digital assets.</p>
-            </CardContent>
-          </Card>
-        )}
+            ))
+          ) : (
+            <Card>
+              <CardContent className="p-8 text-center">
+                <Wallet className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                <h3 className="text-lg font-semibold mb-2">No Wallets Connected</h3>
+                <p className="text-gray-600 mb-4">Connect your first wallet to start using Kelo with crypto payments.</p>
+                <Button className="bg-kelo-blue hover:bg-kelo-blue/90">
+                  <Plus className="mr-2 h-4 w-4" />
+                  Connect Your First Wallet
+                </Button>
+              </CardContent>
+            </Card>
+          )}
+        </div>
 
-        {/* Connect New Wallet */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Plus size={20} />
-              <span>Connect New Wallet</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-gray-600 mb-4">Add a new wallet to access more investment opportunities across different blockchains.</p>
-            <EnhancedConnectWalletButton 
-              className="w-full"
-              onConnect={(address, chain, wallet) => {
-                console.log('New wallet connected:', { address, chain, wallet });
-                // This would update the user's wallet addresses in real app
-              }}
-            >
-              <Plus className="mr-2 h-4 w-4" />
-              Connect Wallet
-            </EnhancedConnectWalletButton>
-          </CardContent>
-        </Card>
-
-        {/* Info Card */}
+        {/* Information Card */}
         <Card className="bg-blue-50 border-blue-200">
           <CardContent className="p-4">
-            <h3 className="font-medium text-blue-900 mb-2">Why Connect Multiple Wallets?</h3>
-            <ul className="text-sm text-blue-800 space-y-1">
-              <li>• Access investment pools across different blockchains</li>
-              <li>• Diversify your crypto portfolio</li>
-              <li>• Take advantage of the best yields available</li>
-              <li>• Seamless cross-chain investing</li>
-            </ul>
+            <h3 className="font-semibold text-blue-900 mb-2">About Wallet Integration</h3>
+            <p className="text-sm text-blue-800">
+              Connect your crypto wallets to enable seamless payments and access exclusive BNPL offers for digital assets.
+            </p>
           </CardContent>
         </Card>
       </div>
