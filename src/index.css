@@ -242,7 +242,7 @@
 }
 
 /* Mobile optimizations */
-@screen max-sm {
+@media (max-width: 639px) {
   .kelo-container {
     @apply px-3;
   }
