@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -48,7 +47,7 @@ const Navbar = () => {
             <button className="flex items-center text-sm font-medium text-kelo-text hover:text-kelo-primary transition-colors">
               Products <ChevronDown className="ml-1 h-4 w-4" />
             </button>
-            <div className="absolute left-0 top-full w-48 p-2 hidden group-hover:block bg-white rounded-md shadow-lg border border-gray-100 z-20">
+            <div className="absolute left-0 top-full w-48 p-2 hidden group-hover:block bg-white rounded-md shadow-lg border border-gray-100">
               <Link to="/consumer" className="block px-3 py-2 text-sm rounded-md hover:bg-gray-50">
                 For Consumers
               </Link>
@@ -76,11 +75,8 @@ const Navbar = () => {
           <Link to="/about" className="text-sm font-medium text-kelo-text hover:text-kelo-primary transition-colors">
             About Us
           </Link>
-          <Link to="/faq" className="text-sm font-medium text-kelo-text hover:text-kelo-primary transition-colors">
+          <Link to="/faqs" className="text-sm font-medium text-kelo-text hover:text-kelo-primary transition-colors">
             FAQs
-          </Link>
-          <Link to="/help" className="text-sm font-medium text-kelo-text hover:text-kelo-primary transition-colors">
-            Help
           </Link>
         </nav>
 
@@ -199,11 +195,8 @@ const Navbar = () => {
             <Link to="/about" className="px-3 py-3 text-lg font-medium border-b border-gray-100" onClick={toggleMenu}>
               About Us
             </Link>
-            <Link to="/faq" className="px-3 py-3 text-lg font-medium border-b border-gray-100" onClick={toggleMenu}>
+            <Link to="/faqs" className="px-3 py-3 text-lg font-medium border-b border-gray-100" onClick={toggleMenu}>
               FAQs
-            </Link>
-            <Link to="/help" className="px-3 py-3 text-lg font-medium border-b border-gray-100" onClick={toggleMenu}>
-              Help
             </Link>
             
             <div className="flex flex-col space-y-3 mt-6 pt-4">

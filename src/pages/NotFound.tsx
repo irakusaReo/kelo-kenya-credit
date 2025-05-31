@@ -1,71 +1,41 @@
 
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
-import { Home, ArrowLeft, Search } from 'lucide-react';
-import MainLayout from '@/components/layouts/MainLayout';
+import React from "react";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const NotFound = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    console.error(
+      "404 Error: User attempted to access non-existent route:",
+      location.pathname
+    );
+  }, [location.pathname]);
+
   return (
-    <MainLayout showFloatingCart={false}>
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center py-16">
-        <div className="kelo-container max-w-2xl mx-auto text-center">
-          <Card>
-            <CardContent className="p-12">
-              {/* 404 Illustration */}
-              <div className="mb-8">
-                <div className="text-8xl font-bold text-kelo-blue mb-4">404</div>
-                <div className="w-32 h-32 bg-kelo-blue/10 rounded-full flex items-center justify-center mx-auto">
-                  <Search className="w-16 h-16 text-kelo-blue" />
-                </div>
-              </div>
-              
-              <h1 className="text-3xl font-bold mb-4">Page Not Found</h1>
-              <p className="text-gray-600 mb-8 text-lg">
-                Sorry, we couldn't find the page you're looking for. The page might have been moved, 
-                deleted, or you might have typed the wrong URL.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/">
-                  <Button size="lg" className="bg-kelo-blue hover:bg-kelo-blue/90">
-                    <Home className="mr-2 h-4 w-4" />
-                    Go Home
-                  </Button>
-                </Link>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  onClick={() => window.history.back()}
-                >
-                  <ArrowLeft className="mr-2 h-4 w-4" />
-                  Go Back
-                </Button>
-              </div>
-              
-              <div className="mt-8 pt-8 border-t border-gray-200">
-                <p className="text-sm text-gray-500 mb-4">Need help? Try these popular pages:</p>
-                <div className="flex flex-wrap gap-2 justify-center">
-                  <Link to="/market">
-                    <Button variant="ghost" size="sm">Shop Now</Button>
-                  </Link>
-                  <Link to="/dashboard">
-                    <Button variant="ghost" size="sm">Dashboard</Button>
-                  </Link>
-                  <Link to="/help">
-                    <Button variant="ghost" size="sm">Help Center</Button>
-                  </Link>
-                  <Link to="/faq">
-                    <Button variant="ghost" size="sm">FAQ</Button>
-                  </Link>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4">
+      <div className="text-center space-y-5">
+        <div className="flex justify-center mb-6">
+          <div className="h-24 w-24 rounded-full bg-blue-50 text-kelo-blue flex items-center justify-center text-4xl font-bold">
+            404
+          </div>
+        </div>
+        <h1 className="text-3xl font-bold">Page Not Found</h1>
+        <p className="text-lg text-gray-600 max-w-md mx-auto">
+          We couldn't find the page you were looking for. It might have been moved or doesn't exist.
+        </p>
+        <div className="mt-8">
+          <Link to="/">
+            <Button size="lg" className="bg-kelo-blue hover:bg-kelo-blue/90">
+              Return to Home
+            </Button>
+          </Link>
         </div>
       </div>
-    </MainLayout>
+    </div>
   );
 };
 
