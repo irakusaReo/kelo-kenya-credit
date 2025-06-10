@@ -1,115 +1,177 @@
 
 import React from 'react';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
+import { Users, Target, Award, Globe } from 'lucide-react';
+import MainLayout from '@/components/layouts/MainLayout';
 
 const About = () => {
+  const team = [
+    {
+      name: "John Kamau",
+      role: "CEO & Co-Founder",
+      bio: "Former Equity Bank executive with 10+ years in fintech",
+      image: "/placeholder.svg"
+    },
+    {
+      name: "Mary Wanjiku",
+      role: "CTO & Co-Founder",
+      bio: "Blockchain engineer, previously at Binance Africa",
+      image: "/placeholder.svg"
+    },
+    {
+      name: "David Ochieng",
+      role: "Head of Risk",
+      bio: "Credit risk expert, former CBK regulatory specialist",
+      image: "/placeholder.svg"
+    },
+    {
+      name: "Grace Muthoni",
+      role: "Head of Product",
+      bio: "UX designer with focus on financial inclusion",
+      image: "/placeholder.svg"
+    }
+  ];
+
+  const values = [
+    {
+      icon: Users,
+      title: "Financial Inclusion",
+      description: "Making credit accessible to all Kenyans, regardless of banking history"
+    },
+    {
+      icon: Target,
+      title: "Transparency",
+      description: "No hidden fees, clear terms, and honest communication always"
+    },
+    {
+      icon: Award,
+      title: "Innovation",
+      description: "Leveraging Web3 technology to revolutionize African finance"
+    },
+    {
+      icon: Globe,
+      title: "Impact",
+      description: "Empowering communities through responsible lending practices"
+    }
+  ];
+
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
-      <div className="flex-grow">
-        {/* Hero section */}
-        <div className="bg-gradient-to-b from-kelo-blue to-kelo-blue/80 text-white py-20">
-          <div className="kelo-container text-center">
-            <h1 className="text-4xl font-bold mb-4">About Kelo</h1>
-            <p className="text-xl max-w-2xl mx-auto">
-              Pioneering the future of financial inclusion through innovative Buy Now, Pay Later solutions in Kenya and beyond.
-            </p>
-          </div>
+    <MainLayout showFloatingCart={false}>
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-kelo-blue to-kelo-teal text-white py-16">
+        <div className="kelo-container text-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">About Kelo</h1>
+          <p className="text-xl opacity-90 max-w-3xl mx-auto">
+            We're building the future of financial inclusion in Africa through innovative 
+            Buy Now Pay Later solutions powered by Web3 technology.
+          </p>
         </div>
-        
-        {/* Mission section */}
-        <div className="py-16 kelo-container">
+      </section>
+
+      {/* Mission Section */}
+      <section className="py-16">
+        <div className="kelo-container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-bold mb-4">Our Mission</h2>
+              <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
               <p className="text-gray-600 mb-4">
-                At Kelo, we're on a mission to democratize access to financial services in Kenya and across Africa. 
-                We believe that everyone deserves access to flexible payment options that help them build their financial future.
+                To democratize access to credit for millions of Africans by combining traditional 
+                financial services with cutting-edge blockchain technology.
               </p>
               <p className="text-gray-600">
-                By combining innovative blockchain technology with traditional financial systems, we're creating a bridge between 
-                Web3 and everyday commerce that benefits consumers, merchants, and investors alike.
+                We believe everyone deserves the opportunity to improve their financial wellbeing, 
+                regardless of their current banking status or credit history.
               </p>
             </div>
-            <div className="bg-gray-100 h-80 rounded-lg flex items-center justify-center">
-              {/* Placeholder for mission image */}
-              <p className="text-gray-400">Mission Image</p>
-            </div>
-          </div>
-        </div>
-        
-        {/* Values section */}
-        <div className="bg-gray-50 py-16">
-          <div className="kelo-container">
-            <h2 className="text-3xl font-bold mb-10 text-center">Our Values</h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-white p-6 rounded-lg shadow-sm">
-                <div className="h-12 w-12 bg-kelo-blue/20 rounded-full flex items-center justify-center mb-4">
-                  <span className="text-kelo-blue font-bold">1</span>
+            <div className="bg-gray-50 p-8 rounded-lg">
+              <h3 className="text-xl font-semibold mb-4">Founded in 2024</h3>
+              <div className="space-y-3">
+                <div className="flex justify-between">
+                  <span>Users Served</span>
+                  <span className="font-semibold">50,000+</span>
                 </div>
-                <h3 className="text-xl font-bold mb-2">Inclusion</h3>
-                <p className="text-gray-600">
-                  We design our products to serve everyone, regardless of their financial background or technological expertise.
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-sm">
-                <div className="h-12 w-12 bg-kelo-blue/20 rounded-full flex items-center justify-center mb-4">
-                  <span className="text-kelo-blue font-bold">2</span>
+                <div className="flex justify-between">
+                  <span>Credit Extended</span>
+                  <span className="font-semibold">KES 2.5B+</span>
                 </div>
-                <h3 className="text-xl font-bold mb-2">Innovation</h3>
-                <p className="text-gray-600">
-                  We leverage cutting-edge technology to create solutions that address real-world financial challenges.
-                </p>
-              </div>
-              <div className="bg-white p-6 rounded-lg shadow-sm">
-                <div className="h-12 w-12 bg-kelo-blue/20 rounded-full flex items-center justify-center mb-4">
-                  <span className="text-kelo-blue font-bold">3</span>
+                <div className="flex justify-between">
+                  <span>Merchant Partners</span>
+                  <span className="font-semibold">1,200+</span>
                 </div>
-                <h3 className="text-xl font-bold mb-2">Integrity</h3>
-                <p className="text-gray-600">
-                  We operate with transparency and fairness in all our dealings with customers, partners, and investors.
-                </p>
+                <div className="flex justify-between">
+                  <span>Default Rate</span>
+                  <span className="font-semibold text-green-600">2.1%</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        
-        {/* Team section */}
-        <div className="py-16 kelo-container">
-          <h2 className="text-3xl font-bold mb-10 text-center">Our Team</h2>
-          <div className="grid md:grid-cols-4 gap-6">
-            {[1, 2, 3, 4].map(i => (
-              <div key={i} className="text-center">
-                <div className="h-60 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
-                  <span className="text-gray-400">Photo</span>
-                </div>
-                <h3 className="font-bold">Team Member {i}</h3>
-                <p className="text-gray-500">Position</p>
-              </div>
+      </section>
+
+      {/* Values Section */}
+      <section className="py-16 bg-gray-50">
+        <div className="kelo-container">
+          <h2 className="text-3xl font-bold text-center mb-12">Our Values</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {values.map((value, index) => {
+              const IconComponent = value.icon;
+              return (
+                <Card key={index}>
+                  <CardContent className="p-6 text-center">
+                    <div className="w-16 h-16 bg-kelo-blue/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <IconComponent className="w-8 h-8 text-kelo-blue" />
+                    </div>
+                    <h3 className="font-semibold mb-2">{value.title}</h3>
+                    <p className="text-gray-600 text-sm">{value.description}</p>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="py-16">
+        <div className="kelo-container">
+          <h2 className="text-3xl font-bold text-center mb-12">Meet Our Team</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {team.map((member, index) => (
+              <Card key={index}>
+                <CardContent className="p-6 text-center">
+                  <div className="w-20 h-20 bg-gray-200 rounded-full mx-auto mb-4"></div>
+                  <h3 className="font-semibold">{member.name}</h3>
+                  <p className="text-kelo-blue text-sm mb-2">{member.role}</p>
+                  <p className="text-gray-600 text-sm">{member.bio}</p>
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
-        
-        {/* Contact section */}
-        <div className="bg-gray-900 text-white py-16">
-          <div className="kelo-container text-center">
-            <h2 className="text-3xl font-bold mb-6">Get in Touch</h2>
-            <p className="mb-8 max-w-2xl mx-auto">
-              Have questions about Kelo or want to learn more about our services? 
-              Our team is always ready to help.
-            </p>
-            <a 
-              href="mailto:contact@kelo.com" 
-              className="bg-white text-gray-900 px-6 py-3 rounded-md font-medium inline-block"
-            >
-              Contact Us
-            </a>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 bg-kelo-blue text-white">
+        <div className="kelo-container text-center">
+          <h2 className="text-3xl font-bold mb-4">Join Our Mission</h2>
+          <p className="text-xl mb-8 opacity-90">
+            Help us build the future of African fintech
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link to="/register">
+              <Button size="lg" className="bg-white text-kelo-blue hover:bg-gray-100">
+                Get Started
+              </Button>
+            </Link>
+            <Button size="lg" variant="outline" className="text-white border-white hover:bg-white hover:text-kelo-blue">
+              Join Our Team
+            </Button>
           </div>
         </div>
-      </div>
-      <Footer />
-    </div>
+      </section>
+    </MainLayout>
   );
 };
 
