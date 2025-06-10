@@ -1,8 +1,9 @@
 
-import { AgentKit } from '@coinbase/agent-kit';
-import { createPublicClient, createWalletClient, http } from 'viem';
-import { base } from 'viem/chains';
-import { LOAN_MANAGER_ABI, BASE_CONTRACTS, type LoanTerms } from '@/contracts/BaseLoanManager';
+// Temporarily simplified to avoid TypeScript compiler issues
+// import { AgentKit } from '@coinbase/agent-kit';
+// import { createPublicClient, createWalletClient, http } from 'viem';
+// import { base } from 'viem/chains';
+import { type LoanTerms } from '@/contracts/BaseLoanManager';
 
 export interface AgentConfig {
   basename: string;
@@ -11,7 +12,7 @@ export interface AgentConfig {
 }
 
 export class KeloXMTPAgent {
-  private agentKit: AgentKit | null = null;
+  private agentKit: any = null; // AgentKit | null = null;
   private config: AgentConfig;
   
   constructor(config: AgentConfig) {
@@ -20,12 +21,11 @@ export class KeloXMTPAgent {
 
   async initialize() {
     try {
-      // Initialize AgentKit with Base network
-      console.log('Initializing Kelo XMTP Agent with AgentKit...');
+      console.log('Initializing Kelo XMTP Agent...');
       
       // This would use actual Coinbase AgentKit initialization
       // For now, we'll simulate the connection
-      this.agentKit = {} as AgentKit;
+      this.agentKit = {};
       
       return true;
     } catch (error) {
@@ -39,11 +39,6 @@ export class KeloXMTPAgent {
       console.log('Creating loan on Base network...', terms);
       
       // Simulate contract interaction
-      // In production, this would:
-      // 1. Call LoanManager.createLoan() on Base
-      // 2. Return the transaction hash
-      // 3. Emit LoanCreated event
-      
       const mockTxHash = `0x${Math.random().toString(16).substring(2, 66)}`;
       
       console.log('Loan created with tx hash:', mockTxHash);

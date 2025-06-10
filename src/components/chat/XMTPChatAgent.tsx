@@ -1,11 +1,13 @@
 
 import React, { useState, useEffect } from 'react';
-import { Client } from '@xmtp/xmtp-js';
-import { AgentKit } from '@coinbase/agent-kit';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Wallet, MessageSquare, Check, AlertCircle } from 'lucide-react';
+
+// Temporarily removing XMTP and AgentKit imports to fix compiler issue
+// import { Client } from '@xmtp/xmtp-js';
+// import { AgentKit } from '@coinbase/agent-kit';
 
 interface ChatMessage {
   id: string;
@@ -27,20 +29,14 @@ interface BNPLOffer {
 
 const XMTPChatAgent = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [client, setClient] = useState<Client | null>(null);
-  const [agentKit, setAgentKit] = useState<AgentKit | null>(null);
   const [isConnected, setIsConnected] = useState(false);
   const [inputValue, setInputValue] = useState('');
 
-  // Initialize XMTP client and AgentKit
+  // Initialize agent (simplified for demo)
   useEffect(() => {
     const initializeAgent = async () => {
       try {
-        // Initialize XMTP client (would use actual wallet in production)
-        console.log('Initializing XMTP client...');
-        
-        // Initialize Coinbase AgentKit
-        console.log('Initializing AgentKit...');
+        console.log('Initializing chat agent...');
         
         setIsConnected(true);
         
