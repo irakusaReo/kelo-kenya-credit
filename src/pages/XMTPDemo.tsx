@@ -21,7 +21,7 @@ const XMTPDemo = () => {
               Kelo Chat Agent
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Buy-Now-Pay-Later directly in your secure messages. Powered by XMTP, Base, and Coinbase AgentKit.
+              Complete BNPL ecosystem in secure messages. Split payments, M-Pesa integration, smart reminders, and micro-rewards. Powered by XMTP, Base, and Coinbase AgentKit.
             </p>
           </div>
 
@@ -40,9 +40,9 @@ const XMTPDemo = () => {
             <Card>
               <CardContent className="p-6 text-center">
                 <Zap className="h-8 w-8 text-yellow-500 mx-auto mb-3" />
-                <h3 className="font-medium mb-2">0% Interest</h3>
+                <h3 className="font-medium mb-2">Split Payments</h3>
                 <p className="text-sm text-gray-600">
-                  No hidden fees, transparent pricing
+                  Group purchases with custom ratios
                 </p>
               </CardContent>
             </Card>
@@ -50,9 +50,9 @@ const XMTPDemo = () => {
             <Card>
               <CardContent className="p-6 text-center">
                 <Shield className="h-8 w-8 text-green-500 mx-auto mb-3" />
-                <h3 className="font-medium mb-2">Base Secured</h3>
+                <h3 className="font-medium mb-2">M-Pesa Integration</h3>
                 <p className="text-sm text-gray-600">
-                  Smart contracts on Base network
+                  Local payments with STK Push
                 </p>
               </CardContent>
             </Card>
@@ -60,9 +60,9 @@ const XMTPDemo = () => {
             <Card>
               <CardContent className="p-6 text-center">
                 <Globe className="h-8 w-8 text-purple-500 mx-auto mb-3" />
-                <h3 className="font-medium mb-2">Kenya-First</h3>
+                <h3 className="font-medium mb-2">Smart Rewards</h3>
                 <p className="text-sm text-gray-600">
-                  M-Pesa integration for local payments
+                  KELO tokens for on-time payments
                 </p>
               </CardContent>
             </Card>
@@ -76,74 +76,69 @@ const XMTPDemo = () => {
             </div>
             
             <div>
-              <h2 className="text-2xl font-bold mb-6">How It Works</h2>
-              <div className="space-y-6">
+              <h2 className="text-2xl font-bold mb-6">Available Commands</h2>
+              <div className="space-y-4">
                 <Card>
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="bg-kelo-blue text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
-                        1
-                      </div>
-                      <div>
-                        <h4 className="font-medium mb-2">Type Your Purchase</h4>
-                        <p className="text-sm text-gray-600">
-                          Use "/buy [item] KSh [price] [installments]x" in any XMTP chat
-                        </p>
-                        <code className="bg-gray-100 px-2 py-1 rounded text-xs mt-2 block">
-                          /buy iPhone 15 KSh 120000 3x
-                        </code>
-                      </div>
-                    </div>
+                  <CardContent className="p-4">
+                    <h4 className="font-medium mb-2">💳 BNPL Purchase</h4>
+                    <code className="bg-gray-100 px-2 py-1 rounded text-sm block mb-2">
+                      /buy iPhone 15 KSh 120000 3x
+                    </code>
+                    <p className="text-sm text-gray-600">Creates instant 0% interest loan</p>
                   </CardContent>
                 </Card>
                 
                 <Card>
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="bg-kelo-blue text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
-                        2
-                      </div>
-                      <div>
-                        <h4 className="font-medium mb-2">Review & Accept</h4>
-                        <p className="text-sm text-gray-600">
-                          Agent generates instant BNPL terms with 0% interest
-                        </p>
-                      </div>
-                    </div>
+                  <CardContent className="p-4">
+                    <h4 className="font-medium mb-2">👥 Split Payment</h4>
+                    <code className="bg-gray-100 px-2 py-1 rounded text-sm block mb-2">
+                      /split @alice @bob 60/40
+                    </code>
+                    <p className="text-sm text-gray-600">Group purchase with custom ratios</p>
                   </CardContent>
                 </Card>
                 
                 <Card>
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="bg-kelo-blue text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
-                        3
-                      </div>
-                      <div>
-                        <h4 className="font-medium mb-2">On-Chain Execution</h4>
-                        <p className="text-sm text-gray-600">
-                          Smart contract deployed on Base handles the loan lifecycle
-                        </p>
-                      </div>
-                    </div>
+                  <CardContent className="p-4">
+                    <h4 className="font-medium mb-2">📱 M-Pesa Payment</h4>
+                    <code className="bg-gray-100 px-2 py-1 rounded text-sm block mb-2">
+                      /pay KSh 15000
+                    </code>
+                    <p className="text-sm text-gray-600">Triggers STK Push for Kenyan users</p>
                   </CardContent>
                 </Card>
                 
                 <Card>
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="bg-kelo-blue text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
-                        4
-                      </div>
-                      <div>
-                        <h4 className="font-medium mb-2">M-Pesa Repayments</h4>
-                        <p className="text-sm text-gray-600">
-                          Local payment integration for seamless repayments
-                        </p>
-                      </div>
-                    </div>
+                  <CardContent className="p-4">
+                    <h4 className="font-medium mb-2">📊 Loan Status</h4>
+                    <code className="bg-gray-100 px-2 py-1 rounded text-sm block mb-2">
+                      /status
+                    </code>
+                    <p className="text-sm text-gray-600">Check active loans and rewards</p>
                   </CardContent>
                 </Card>
+              </div>
+
+              <div className="mt-6">
+                <h3 className="text-lg font-bold mb-4">Smart Features</h3>
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <span className="text-sm">Bilingual reminders (English/Swahili)</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span className="text-sm">KELO token rewards for on-time payments</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                    <span className="text-sm">Auto-detection of Kenyan locale</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                    <span className="text-sm">Group loan coordination</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -151,26 +146,32 @@ const XMTPDemo = () => {
           {/* Technical Details */}
           <Card className="mb-12">
             <CardHeader>
-              <CardTitle>Technical Architecture</CardTitle>
+              <CardTitle>Enhanced Technical Architecture</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid md:grid-cols-3 gap-6">
+              <div className="grid md:grid-cols-4 gap-6">
                 <div className="text-center">
                   <h4 className="font-medium mb-2">XMTP Protocol</h4>
                   <p className="text-sm text-gray-600">
-                    Secure, decentralized messaging with E2E encryption
+                    Secure messaging with command parsing
                   </p>
                 </div>
                 <div className="text-center">
-                  <h4 className="font-medium mb-2">Base Network</h4>
+                  <h4 className="font-medium mb-2">Base Contracts</h4>
                   <p className="text-sm text-gray-600">
-                    LoanManager & RewardsDistributor smart contracts
+                    LoanManager, SplitPayments, RewardsDistributor
                   </p>
                 </div>
                 <div className="text-center">
-                  <h4 className="font-medium mb-2">AgentKit</h4>
+                  <h4 className="font-medium mb-2">AgentKit + AI</h4>
                   <p className="text-sm text-gray-600">
-                    Coinbase's framework for on-chain AI agents
+                    Smart reminders with language detection
+                  </p>
+                </div>
+                <div className="text-center">
+                  <h4 className="font-medium mb-2">M-Pesa Integration</h4>
+                  <p className="text-sm text-gray-600">
+                    STK Push webhooks for repayments
                   </p>
                 </div>
               </div>
@@ -179,9 +180,9 @@ const XMTPDemo = () => {
 
           {/* CTA Section */}
           <div className="text-center">
-            <h2 className="text-2xl font-bold mb-4">Ready to Experience Chat Commerce?</h2>
+            <h2 className="text-2xl font-bold mb-4">Ready for the Future of Chat Commerce?</h2>
             <p className="text-gray-600 mb-6">
-              Join the future of BNPL with Kelo's chat-native agent
+              Experience BNPL, split payments, and micro-rewards all in secure messages
             </p>
             <div className="flex gap-4 justify-center">
               <Button className="bg-kelo-blue hover:bg-kelo-blue/90">

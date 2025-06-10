@@ -101,18 +101,30 @@ export class KeloXMTPAgent {
         };
         
       case 'split':
+        const [, usersStr, ratiosStr] = matches;
+        const users = usersStr.split(/\s+/).filter(u => u.startsWith('@'));
+        const ratios = ratiosStr.split('/').map(r => parseInt(r));
+        
         return {
           type: 'split-payment',
           data: {
-            message: 'Split payment feature coming soon! Group BNPL is in development.'
+            users,
+            ratios,
+            message: `Split payment setup: ${users.join(', ')} with ratios ${ratios.join(':')}`,
+            totalUsers: users.length
           }
         };
         
       case 'pay':
+        const [, amountStr] = matches;
+        const amount = parseFloat(amountStr.replace(/,/g, ''));
+        
         return {
-          type: 'payment-request',
+          type: 'mpesa-payment',
           data: {
-            message: 'Redirecting to M-Pesa STK Push...'
+            amount,
+            message: 'Initiating M-Pesa STK Push...',
+            phonePrompt: 'Please enter your M-Pesa registered phone number'
           }
         };
         
@@ -120,13 +132,46 @@ export class KeloXMTPAgent {
         return {
           type: 'status',
           data: {
-            message: 'Fetching your loan status...'
+            message: 'Fetching your loan status...',
+            activeLoans: 2,
+            nextPayment: 'KSh 15,000 due in 5 days',
+            rewardsEarned: 'KELO 250 tokens'
           }
         };
         
       default:
         return null;
     }
+  }
+
+  detectKenyanLocale(message: string): boolean {
+    const kenyanIndicators = [
+      /\bKSh?\b/i,
+      /\bmpesa\b/i,
+      /\bsafaricom\b/i,
+      /\bmtumba\b/i,
+      /\bshuka\b/i
+    ];
+    
+    return kenyanIndicators.some(pattern => pattern.test(message));
+  }
+
+  generateSmartReminder(daysUntilPayment: number, language: 'en' | 'sw' = 'en') {
+    const reminderTemplates = {
+      en: {
+        3: "Hi! Your loan payment of KSh {amount} is due in 3 days. Pay early and earn bonus KELO rewards! 🎁",
+        1: "Reminder: Your payment of KSh {amount} is due tomorrow. Don't miss out on your reward streak! ⚡",
+        0: "Your payment of KSh {amount} is due today. Complete it now to maintain your perfect payment record! 🏆"
+      },
+      sw: {
+        3: "Hujambo! Malipo yako ya KSh {amount} yanastahili siku 3. Lipa mapema upate bonus ya KELO! 🎁",
+        1: "Ukumbusho: Malipo yako ya KSh {amount} yanastahili kesho. Usipoteze tuzo zako! ⚡",
+        0: "Malipo yako ya KSh {amount} yanastahili leo. Maliza sasa ili kudumisha rekodi yako nzuri! 🏆"
+      }
+    };
+
+    return reminderTemplates[language][daysUntilPayment as keyof typeof reminderTemplates[typeof language]] || 
+           reminderTemplates[language][0];
   }
 }
 
