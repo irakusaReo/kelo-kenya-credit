@@ -15,6 +15,7 @@ import Privacy from "./pages/Privacy";
 import Help from "./pages/Help";
 import NotFound from "./pages/NotFound";
 import Maintenance from "./pages/Maintenance";
+import XMTPDemo from "./pages/XMTPDemo";
 
 // Auth Pages
 import Login from "./pages/Login";
@@ -94,6 +95,7 @@ const App = () => (
             <Route path="/legal/terms" element={<Terms />} />
             <Route path="/legal/privacy" element={<Privacy />} />
             <Route path="/maintenance" element={<Maintenance />} />
+            <Route path="/xmtp-demo" element={<XMTPDemo />} />
             
             {/* Auth Routes */}
             <Route path="/login" element={<Login />} />
