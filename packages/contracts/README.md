@@ -15,9 +15,18 @@
 4. **Deploy:**  
    `forge script deploy/DeployLoanManager.s.sol --rpc-url $RPC_URL --private-key $PRIVATE_KEY --broadcast`
 
+## Testnet addresses to fill
+
+- **Base Sepolia (testnet)**: Fill USDC/USDT
+- **Arbitrum Sepolia (testnet)**: Fill USDC/USDT
+- **Celo Alfajores (testnet)**: Fill cUSD
+
+> Find the official testnet addresses in the relevant explorer or documentation.
+
 ## Notes
 - Only pre-approved stablecoins are accepted per chain. You MUST change token addresses before deploying.
 - KELO token (`IERC20Mintable`) must exist and the RewardsDistributor must have a minter role.
 
 ## TODO
 - Add tests, further access control as needed.
+
