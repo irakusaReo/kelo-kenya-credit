@@ -11,8 +11,10 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarHeader,
-  SidebarTrigger,
+  SidebarFooter,
 } from '@/components/ui/sidebar';
+import { Button } from '@/components/ui/button';
+import { useTheme } from '@/contexts/ThemeContext';
 import {
   Home,
   Store,
@@ -26,6 +28,8 @@ import {
   Users,
   Shield,
   Building2,
+  Sun,
+  Moon,
 } from 'lucide-react';
 
 const navigationItems = [
@@ -99,18 +103,22 @@ const businessItems = [
 
 export function AppSidebar() {
   const location = useLocation();
+  const { theme, setTheme } = useTheme();
+
+  const toggleTheme = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
 
   return (
     <Sidebar className="hidden md:flex">
       <SidebarHeader className="border-b border-sidebar-border p-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-2">
           <Link to="/" className="flex items-center space-x-2">
             <div className="w-8 h-8 bg-kelo-blue rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">K</span>
             </div>
             <span className="font-bold text-lg">Kelo</span>
           </Link>
-          <SidebarTrigger />
         </div>
       </SidebarHeader>
       
@@ -169,6 +177,18 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
+      <SidebarFooter className="p-4 border-t border-sidebar-border">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={toggleTheme}
+          className="w-full justify-start"
+        >
+          {theme === 'dark' ? <Sun className="h-4 w-4 mr-2" /> : <Moon className="h-4 w-4 mr-2" />}
+          {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+        </Button>
+      </SidebarFooter>
     </Sidebar>
   );
 }

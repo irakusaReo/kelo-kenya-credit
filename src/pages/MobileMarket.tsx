@@ -31,16 +31,16 @@ const MobileMarket = () => {
   const featuredProducts = products.slice(0, 6);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 w-full overflow-x-hidden">
       {/* Header */}
-      <div className="bg-white p-4 border-b">
-        <div className="flex items-center space-x-4 mb-4">
+      <div className="bg-white dark:bg-gray-800 p-4 border-b border-gray-200 dark:border-gray-700 w-full">
+        <div className="flex items-center space-x-4 mb-4 w-full">
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
             <input
               type="text"
               placeholder="Search brands or products..."
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400"
             />
           </div>
           <Button variant="outline" size="sm">
@@ -49,13 +49,13 @@ const MobileMarket = () => {
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b">
+        <div className="flex border-b border-gray-200 dark:border-gray-700 w-full">
           <button
             onClick={() => setActiveTab('brands')}
             className={`px-4 py-2 text-sm font-medium border-b-2 ${
               activeTab === 'brands'
                 ? 'border-kelo-blue text-kelo-blue'
-                : 'border-transparent text-gray-500'
+                : 'border-transparent text-gray-500 dark:text-gray-400'
             }`}
           >
             Brands
@@ -65,7 +65,7 @@ const MobileMarket = () => {
             className={`px-4 py-2 text-sm font-medium border-b-2 ${
               activeTab === 'products'
                 ? 'border-kelo-blue text-kelo-blue'
-                : 'border-transparent text-gray-500'
+                : 'border-transparent text-gray-500 dark:text-gray-400'
             }`}
           >
             Featured Products
@@ -74,38 +74,38 @@ const MobileMarket = () => {
       </div>
 
       {/* Content */}
-      <div className="p-4">
+      <div className="p-4 w-full">
         {activeTab === 'brands' && (
-          <div>
+          <div className="w-full">
             {/* Filter Buttons */}
-            <div className="flex space-x-2 mb-4 overflow-x-auto pb-2">
+            <div className="flex space-x-2 mb-4 overflow-x-auto pb-2 w-full">
               {categories.map((category) => (
                 <Button
                   key={category}
                   variant={selectedFilter === category ? 'default' : 'outline'}
                   size="sm"
                   onClick={() => setSelectedFilter(category)}
-                  className="whitespace-nowrap"
+                  className="whitespace-nowrap flex-shrink-0"
                 >
                   {category}
                 </Button>
               ))}
             </div>
 
-            {/* Brands Grid - Made smaller */}
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
+            {/* Brands Grid */}
+            <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 w-full">
               {filteredPartners.map((partner) => (
-                <Link key={partner.id} to={`/market/store/${partner.id}`}>
-                  <Card className="hover:shadow-md transition-shadow">
+                <Link key={partner.id} to={`/market/store/${partner.id}`} className="w-full">
+                  <Card className="hover:shadow-md transition-shadow w-full">
                     <CardContent className="p-3">
-                      <div className="aspect-square bg-white rounded-lg mb-2 flex items-center justify-center">
+                      <div className="aspect-square bg-white dark:bg-gray-700 rounded-lg mb-2 flex items-center justify-center">
                         <img 
                           src={partner.logo} 
                           alt={partner.name}
                           className="max-w-full max-h-full object-contain p-1"
                         />
                       </div>
-                      <h3 className="text-xs font-medium text-center line-clamp-2">{partner.name}</h3>
+                      <h3 className="text-xs font-medium text-center line-clamp-2 text-gray-900 dark:text-gray-100">{partner.name}</h3>
                     </CardContent>
                   </Card>
                 </Link>
@@ -115,15 +115,15 @@ const MobileMarket = () => {
         )}
 
         {activeTab === 'products' && (
-          <div>
-            <h2 className="text-lg font-semibold mb-4">Featured Products</h2>
+          <div className="w-full">
+            <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">Featured Products</h2>
             
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4 w-full">
               {featuredProducts.map((product) => (
-                <Link key={product.id} to={`/market/product/${product.id}`}>
-                  <Card className="hover:shadow-md transition-shadow">
+                <Link key={product.id} to={`/market/product/${product.id}`} className="w-full">
+                  <Card className="hover:shadow-md transition-shadow w-full">
                     <CardContent className="p-3">
-                      <div className="aspect-square bg-white rounded-lg mb-3 flex items-center justify-center relative">
+                      <div className="aspect-square bg-white dark:bg-gray-700 rounded-lg mb-3 flex items-center justify-center relative">
                         {product.discountPercentage && (
                           <div className="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">
                             -{product.discountPercentage}%
@@ -135,17 +135,17 @@ const MobileMarket = () => {
                           className="max-w-full max-h-full object-contain p-2"
                         />
                       </div>
-                      <h3 className="font-medium text-sm line-clamp-2 mb-1">{product.name}</h3>
+                      <h3 className="font-medium text-sm line-clamp-2 mb-1 text-gray-900 dark:text-gray-100">{product.name}</h3>
                       
                       {/* Rating */}
                       <div className="flex items-center mb-2">
                         <Star size={12} className="text-amber-500 fill-amber-500" />
-                        <span className="text-xs text-gray-600 ml-1">4.8</span>
+                        <span className="text-xs text-gray-600 dark:text-gray-400 ml-1">4.8</span>
                       </div>
                       
                       <div className="space-y-1">
-                        <p className="font-bold text-lg">KES {product.price.toLocaleString()}</p>
-                        <p className="text-xs text-gray-600">
+                        <p className="font-bold text-lg text-gray-900 dark:text-gray-100">KES {product.price.toLocaleString()}</p>
+                        <p className="text-xs text-gray-600 dark:text-gray-400">
                           Pay 4x for KES {Math.round(product.price / 4).toLocaleString()}
                         </p>
                       </div>
