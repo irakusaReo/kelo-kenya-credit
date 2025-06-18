@@ -31,10 +31,10 @@ const MobileMarket = () => {
   const featuredProducts = products.slice(0, 6);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 w-full overflow-x-hidden">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 pb-20">
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 p-4 border-b border-gray-200 dark:border-gray-700 w-full">
-        <div className="flex items-center space-x-4 mb-4 w-full">
+      <div className="bg-white dark:bg-gray-800 p-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="flex items-center space-x-4 mb-4">
           <div className="flex-1 relative">
             <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
             <input
@@ -43,16 +43,16 @@ const MobileMarket = () => {
               className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400"
             />
           </div>
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" className="flex-shrink-0">
             <Filter className="h-4 w-4" />
           </Button>
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b border-gray-200 dark:border-gray-700 w-full">
+        <div className="flex border-b border-gray-200 dark:border-gray-700">
           <button
             onClick={() => setActiveTab('brands')}
-            className={`px-4 py-2 text-sm font-medium border-b-2 ${
+            className={`px-4 py-2 text-sm font-medium border-b-2 flex-shrink-0 ${
               activeTab === 'brands'
                 ? 'border-kelo-blue text-kelo-blue'
                 : 'border-transparent text-gray-500 dark:text-gray-400'
@@ -62,7 +62,7 @@ const MobileMarket = () => {
           </button>
           <button
             onClick={() => setActiveTab('products')}
-            className={`px-4 py-2 text-sm font-medium border-b-2 ${
+            className={`px-4 py-2 text-sm font-medium border-b-2 flex-shrink-0 ${
               activeTab === 'products'
                 ? 'border-kelo-blue text-kelo-blue'
                 : 'border-transparent text-gray-500 dark:text-gray-400'
@@ -74,11 +74,11 @@ const MobileMarket = () => {
       </div>
 
       {/* Content */}
-      <div className="p-4 w-full">
+      <div className="p-4">
         {activeTab === 'brands' && (
-          <div className="w-full">
+          <div>
             {/* Filter Buttons */}
-            <div className="flex space-x-2 mb-4 overflow-x-auto pb-2 w-full">
+            <div className="flex space-x-2 mb-4 overflow-x-auto pb-2">
               {categories.map((category) => (
                 <Button
                   key={category}
@@ -93,10 +93,10 @@ const MobileMarket = () => {
             </div>
 
             {/* Brands Grid */}
-            <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 w-full">
+            <div className="grid grid-cols-3 gap-3">
               {filteredPartners.map((partner) => (
-                <Link key={partner.id} to={`/market/store/${partner.id}`} className="w-full">
-                  <Card className="hover:shadow-md transition-shadow w-full">
+                <Link key={partner.id} to={`/market/store/${partner.id}`}>
+                  <Card className="hover:shadow-md transition-shadow">
                     <CardContent className="p-3">
                       <div className="aspect-square bg-white dark:bg-gray-700 rounded-lg mb-2 flex items-center justify-center">
                         <img 
@@ -115,13 +115,13 @@ const MobileMarket = () => {
         )}
 
         {activeTab === 'products' && (
-          <div className="w-full">
+          <div>
             <h2 className="text-lg font-semibold mb-4 text-gray-900 dark:text-gray-100">Featured Products</h2>
             
-            <div className="grid grid-cols-2 gap-4 w-full">
+            <div className="grid grid-cols-2 gap-4">
               {featuredProducts.map((product) => (
-                <Link key={product.id} to={`/market/product/${product.id}`} className="w-full">
-                  <Card className="hover:shadow-md transition-shadow w-full">
+                <Link key={product.id} to={`/market/product/${product.id}`}>
+                  <Card className="hover:shadow-md transition-shadow">
                     <CardContent className="p-3">
                       <div className="aspect-square bg-white dark:bg-gray-700 rounded-lg mb-3 flex items-center justify-center relative">
                         {product.discountPercentage && (
