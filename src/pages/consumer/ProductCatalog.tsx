@@ -17,7 +17,7 @@ const ProductCatalog = () => {
     { id: 'all', name: 'All Products' },
     { id: 'electronics', name: 'Electronics' },
     { id: 'fashion', name: 'Fashion' },
-    { id: 'home', name: 'Home & Garden'  },
+    { id: 'home', name: 'Home & Garden' },
     { id: 'sports', name: 'Sports' }
   ];
 
@@ -128,9 +128,9 @@ const ProductCatalog = () => {
             <p className="text-gray-600">{filteredProducts.length} products found</p>
           </div>
 
-          {/* Product Grid - Made smaller and more responsive */}
-          <div className={`grid gap-4 ${
-            viewMode === 'grid' ? 'grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6' : 'grid-cols-1'
+          {/* Product Grid */}
+          <div className={`grid gap-6 ${
+            viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4' : 'grid-cols-1'
           }`}>
             {filteredProducts.map((product) => (
               <Card key={product.id} className="overflow-hidden hover:shadow-lg transition-shadow">
@@ -146,10 +146,10 @@ const ProductCatalog = () => {
                     </Badge>
                   )}
                 </div>
-                <CardContent className="p-3">
-                  <h3 className="font-semibold mb-2 text-sm line-clamp-2">{product.name}</h3>
+                <CardContent className="p-4">
+                  <h3 className="font-semibold mb-2">{product.name}</h3>
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-lg font-bold">KES {product.price.toLocaleString()}</span>
+                    <span className="text-xl font-bold">KES {product.price.toLocaleString()}</span>
                     {product.originalPrice > product.price && (
                       <span className="text-sm text-gray-500 line-through">
                         KES {product.originalPrice.toLocaleString()}
@@ -163,7 +163,7 @@ const ProductCatalog = () => {
                     <p className="text-xs text-gray-500">0% interest</p>
                   </div>
                   <Link to={`/product/${product.id}`}>
-                    <Button className="w-full bg-kelo-blue hover:bg-kelo-blue/90 text-sm py-2">
+                    <Button className="w-full bg-kelo-blue hover:bg-kelo-blue/90">
                       View Details
                     </Button>
                   </Link>

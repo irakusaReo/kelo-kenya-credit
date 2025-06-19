@@ -21,21 +21,22 @@ const Marketplace = () => {
       </div>
 
       {/* Categories Section */}
-      <section className="section-padding bg-kelo-background dark:bg-gray-900">
+      <section className="section-padding bg-kelo-background">
         <div className="kelo-container">
-          <h2 className="text-2xl font-semibold mb-8 text-gray-900 dark:text-gray-100">Shop by Category</h2>
+          <h2 className="text-2xl font-semibold mb-8">Shop by Category</h2>
           
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 w-full">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
             {verticals.map((vertical) => (
-              <Link to={`/vertical/${vertical.slug}`} key={vertical.id} className="w-full">
-                <Card className="hover:shadow-md transition-shadow duration-300 h-full w-full">
-                  <CardContent className="p-3 flex flex-col items-center text-center">
-                    <div className="w-12 h-12 mb-2 flex items-center justify-center">
-                      <div className="w-10 h-10 rounded-full bg-kelo-blue/10 flex items-center justify-center text-kelo-blue text-lg font-bold">
+              <Link to={`/vertical/${vertical.slug}`} key={vertical.id}>
+                <Card className="hover:shadow-md transition-shadow duration-300 h-full">
+                  <CardContent className="p-4 flex flex-col items-center text-center">
+                    <div className="w-16 h-16 mb-3 flex items-center justify-center">
+                      {/* Using the first letter of the vertical name instead of an icon */}
+                      <div className="w-12 h-12 rounded-full bg-kelo-blue/10 flex items-center justify-center text-kelo-blue text-2xl font-bold">
                         {vertical.name.charAt(0)}
                       </div>
                     </div>
-                    <h3 className="font-medium text-sm text-gray-900 dark:text-gray-100">{vertical.name}</h3>
+                    <h3 className="font-medium">{vertical.name}</h3>
                   </CardContent>
                 </Card>
               </Link>
@@ -45,23 +46,23 @@ const Marketplace = () => {
       </section>
 
       {/* Partners Section */}
-      <section className="section-padding bg-white dark:bg-gray-800">
+      <section className="section-padding bg-white">
         <div className="kelo-container">
-          <h2 className="text-2xl font-semibold mb-8 text-gray-900 dark:text-gray-100">Our Partners</h2>
+          <h2 className="text-2xl font-semibold mb-8">Our Partners</h2>
           
-          <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-4 w-full">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
             {partners.map((partner) => (
-              <Link to={`/partner/${partner.id}`} key={partner.id} className="w-full">
-                <Card className="hover:shadow-md transition-shadow duration-300 h-full w-full">
-                  <CardContent className="p-4 flex flex-col items-center justify-center text-center h-full">
-                    <div className="w-full h-16 mb-3 flex items-center justify-center">
+              <Link to={`/partner/${partner.id}`} key={partner.id}>
+                <Card className="hover:shadow-md transition-shadow duration-300 h-full">
+                  <CardContent className="p-6 flex flex-col items-center justify-center text-center h-full">
+                    <div className="w-full h-24 mb-4 flex items-center justify-center">
                       <img 
                         src={partner.logo} 
                         alt={partner.name} 
                         className="max-w-full max-h-full object-contain"
                       />
                     </div>
-                    <h3 className="font-medium text-sm text-gray-900 dark:text-gray-100">{partner.name}</h3>
+                    <h3 className="font-medium">{partner.name}</h3>
                   </CardContent>
                 </Card>
               </Link>

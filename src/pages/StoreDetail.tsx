@@ -150,34 +150,34 @@ const StoreDetail = () => {
               </Button>
             </div>
 
-            {/* Products Grid - Made smaller and more responsive */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
+            {/* Products Grid */}
+            <div className="grid grid-cols-2 gap-4">
               {filteredProducts.map((product) => (
                 <Link key={product.id} to={`/market/product/${product.id}`}>
                   <Card className="hover:shadow-md transition-shadow">
-                    <CardContent className="p-2">
-                      <div className="aspect-square bg-white rounded-lg mb-2 flex items-center justify-center relative">
+                    <CardContent className="p-3">
+                      <div className="aspect-square bg-white rounded-lg mb-3 flex items-center justify-center relative">
                         {product.discountPercentage && (
-                          <div className="absolute top-1 left-1 bg-red-500 text-white text-xs px-1 py-0.5 rounded">
+                          <div className="absolute top-2 left-2 bg-red-500 text-white text-xs px-2 py-1 rounded">
                             -{product.discountPercentage}%
                           </div>
                         )}
                         <img 
                           src={product.image} 
                           alt={product.name}
-                          className="max-w-full max-h-full object-contain p-1"
+                          className="max-w-full max-h-full object-contain p-2"
                         />
                       </div>
-                      <h3 className="font-medium text-xs line-clamp-2 mb-1">{product.name}</h3>
+                      <h3 className="font-medium text-sm line-clamp-2 mb-1">{product.name}</h3>
                       
                       {/* Rating */}
-                      <div className="flex items-center mb-1">
-                        <Star size={10} className="text-amber-500 fill-amber-500" />
+                      <div className="flex items-center mb-2">
+                        <Star size={12} className="text-amber-500 fill-amber-500" />
                         <span className="text-xs text-gray-600 ml-1">4.8</span>
                       </div>
                       
                       <div className="space-y-1">
-                        <p className="font-bold text-sm">KES {product.price.toLocaleString()}</p>
+                        <p className="font-bold text-lg">KES {product.price.toLocaleString()}</p>
                         <p className="text-xs text-gray-600">
                           Pay 4x for KES {Math.round(product.price / 4).toLocaleString()}
                         </p>
